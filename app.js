@@ -129,3 +129,22 @@ function pregunta() {
 function siguiente() { idx++; pregunta(); }
 function reiniciar() { idx = 0; ok = 0; pregunta(); }
 pregunta();
+
+/* ---------- lightbox de la galería ---------- */
+const lb = document.getElementById('lb');
+if (lb) {
+  const lbimg = document.getElementById('lbimg');
+  const lbcap = document.getElementById('lbcap');
+  document.querySelectorAll('.gal img').forEach(img => {
+    img.addEventListener('click', () => {
+      lbimg.src = img.src;
+      const cap = img.parentElement.querySelector('figcaption');
+      lbcap.textContent = cap ? cap.textContent : '';
+      lb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  const cerrar = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+  lb.addEventListener('click', cerrar);
+  addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
+}
