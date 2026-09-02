@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Carpeta del Proyecto: automatización de un telar industrial Vamatex C 201 mediante ESP32 y aplicación web. Requisitos, arquitectura, hardware, gestión y oferta económica.">
+<title>Carpeta del Proyecto · Control de Inserción de Trama</title>
+<link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+<button class="mtoggle" id="mt" aria-label="Menú">☰</button>
+<aside class="sb" id="sb">
+  <div class="sb-top">
+    <div class="t">Control de<br>Inserción de Trama</div>
+    <div class="s">Carpeta del Proyecto · 7mo Informática 2026</div>
+  </div>
+  <nav id="nav"><div class="ngr">Introducción</div>
+<a href="#s1" class="n0">1 · Control de Cambios</a>
+<a href="#s2" class="n0">2 · Introducción</a>
+<a href="#s2-1" class="n1">2.1 · Propósito</a>
+<a href="#s2-2" class="n1">2.2 · Alcance</a>
+<a href="#s2-3" class="n1">2.3 · Personal Involucrado</a>
+<a href="#s2-4" class="n1">2.4 · Definición, acrónimos y abreviaturas</a>
+<a href="#s2-5" class="n1">2.5 · Referencias</a>
+<a href="#s2-6" class="n1">2.6 · Resumen Ejecutivo</a>
+<div class="ngr">Descripción y requisitos</div>
+<a href="#s3" class="n0">3 · Descripción General</a>
+<a href="#s3-1" class="n1">3.1 · Perspectiva del producto</a>
+<a href="#s3-2" class="n1">3.2 · Funcionalidad del producto y sistemas de diseño (ui/ux)</a>
+<a href="#s3-3" class="n1">3.3 · Características de los Usuarios</a>
+<a href="#s3-4" class="n1">3.4 · Restricciones</a>
+<a href="#s3-5" class="n1">3.5 · Suposiciones y dependencias</a>
+<a href="#s3-6" class="n1">3.6 · Evolución previsible del sistema</a>
+<a href="#s4" class="n0">4 · Requisitos Específicos</a>
+<a href="#s4-1" class="n1">4.1 · Requerimientos funcionales</a>
+<a href="#s4-2" class="n1">4.2 · Requerimentos No Funcionales (RNF)</a>
+<a href="#s4-3" class="n1">4.3 · Interfaces de usuario</a>
+<a href="#s4-4" class="n1">4.4 · Interfaces de software</a>
+<a href="#s4-5" class="n1">4.5 · Interfaces de comunicación</a>
+<a href="#s4-6" class="n1">4.6 · Interfaces de hardware (RHW)</a>
+<a href="#s4-7" class="n1">4.7 · Limitaciones del alcance (LIM)</a>
+<div class="ngr">Hardware y gestión</div>
+<a href="#s5" class="n0">5 · Hardware</a>
+<a href="#s5-1" class="n1">5.1 · Limitaciones y Consideraciones Eléctricas</a>
+<a href="#s5-2" class="n1">5.2 · Acoplamiento Electrónico y Cableado</a>
+<a href="#s5-3" class="n1">5.3 · Flujo Secuencial del Acondicionamiento de Hardware</a>
+<a href="#s5-4" class="n1">5.4 · Protección Industrial e Inmunidad Electromagnética (EMI)</a>
+<a href="#s5-5" class="n1">5.5 · Gabinete y Protección Física</a>
+<a href="#s5-6" class="n1">5.6 · Lista de Componentes por Bloques (BOM)</a>
+<a href="#s6" class="n0">6 · Oferta de Gestión</a>
+<a href="#s6-1" class="n1">6.1 · GANTT</a>
+<a href="#s6-2" class="n1">6.2 · Product Backlog</a>
+<a href="#s6-3" class="n1">6.3 · Infraestructura administrativa</a>
+<div class="ngr">Economía y cierre</div>
+<a href="#s7" class="n0">7 · Oferta Económica</a>
+<a href="#s7-1" class="n1">7.1 · Proveedores de Internet</a>
+<a href="#s7-2" class="n1">7.2 · Proveedores de insumos electrónicos / computadoras</a>
+<a href="#s8" class="n0">8 · Estimación Económica</a>
+<a href="#s9" class="n0">9 · Lineamientos Futuros</a>
+<a href="#s9-1" class="n1">9.1 · Escalamiento a Toda la Flota de Telares</a>
+<a href="#s9-2" class="n1">9.2 · Analítica y Mantenimiento Predictivo</a>
+<a href="#s9-3" class="n1">9.3 · Nivel 3: Selección Jacquard Digital</a>
+<a href="#s9-4" class="n1">9.4 · Oportunidades de Negocio</a>
+<a href="#s10" class="n0">10 · Contrato</a>
+<a href="#s10-1" class="n1">10.1 · Objetivo del proyecto</a>
+<a href="#s10-2" class="n1">10.2 · Alcance del proyecto</a>
+<a href="#s10-3" class="n1">10.3 · Plazos</a>
+<a href="#s10-4" class="n1">10.4 · Responsabilidades</a>
+<a href="#s10-5" class="n1">10.5 · Criterios de aceptación</a>
+<a href="#s10-6" class="n1">10.6 · Condiciones de modificación</a></nav>
+</aside>
+
+<main class="wrap">
+<header class="hero">
+    <div class="kick">Carpeta del Proyecto · Documentación</div>
+    <h1>Automatización de Telar Industrial<small>Control de Inserción de Trama para un Vamatex C 201</small></h1>
+    <p class="d">Documentación técnica, operativa y económica del proyecto. Sistema de hardware y software que
+      reemplaza la cinta de papel perforada de un telar de 1989 por una aplicación web, permitiendo diseñar,
+      guardar y ejecutar los dibujos del tejido sin modificar la mecánica de la máquina ni impedir que se
+      siga operando manualmente.</p>
+    <div class="ficha">
+      <div><b>Cliente</b>Norberto Ferrando</div>
+      <div><b>Máquina</b>Vamatex C 201 · matrícula 1104</div>
+      <div><b>Equipo</b>N.º 5 — 7mo Informática B</div>
+      <div><b>Institución</b>Instituto Leonardo Murialdo</div>
+      <div><b>Ciclo</b>2026 · del 16/03 al 14/11</div>
+      <div><b>Stack</b>ESP32 · Node.js · PostgreSQL</div>
+    </div>
+    <div class="aviso"><b>Sobre este documento.</b> Sigue la estructura de la Carpeta del Proyecto definida en el
+      módulo de Documentación. Los apartados marcados con la página del libro <em>Buenas Prácticas para Proyectos
+      Informáticos</em> (UTN, edUTecNe) respetan el formato de tabla de esa fuente. Es la versión navegable del
+      documento; el archivo Word y las planillas del proyecto contienen el mismo contenido.</div>
+  </header>
+<section id="s1">
+<h2><span class="n">1</span>Control de Cambios</h2>
+<div class="tw"><table><thead><tr><th>Versión</th><th>Fecha</th><th>Responsable</th><th>Detalle del cambio</th></tr></thead><tbody><tr><td>1.0</td><td>16 de mayo de 2026</td><td>Equipo de Proyecto (7mo Informática, Instituto Leonardo Murialdo)</td><td>Primera versión de la documentación técnica y funcional construida a partir del relevamiento in situ inicial y la bitácora de avances de hardware y software.</td></tr><tr><td>2.0</td><td>30 de julio de 2026</td><td>Equipo de Proyecto (7mo Informática, Instituto Leonardo Murialdo)</td><td>Actualización integral realizada a partir de la Revisión 3 del stack técnico (paquete “control_insercion_trama_completo”) y de la carpeta de documentación interna del equipo. Los cambios más relevantes: (1) se reemplaza el esquema de base de datos ficticio por el esquema real en PostgreSQL alojado en Neon (tablas patrones, telares, historial_produccion, errores_log, usuarios y las tablas de autenticación biométrica); (2) se actualiza el Nivel 2 de hardware al camino único con solenoides; (3) se corrige la Guía de Estilos con el Design System real (paleta púrpura/crema, tipografía Century Gothic/Questrial); (4) se documenta el login biométrico WebAuthn ya implementado; (5) se actualiza el cronograma (Gantt real de 8 etapas) y la estimación económica con la lista de componentes de la Revisión 3 y el costeo de horas de personal; y (6) se agrega la Sección 9, “Documentación de Avances”, con el registro de entrevistas, las minutas de reunión, el registro de cambios del mockup y la bitácora de avances técnicos.</td></tr><tr><td>3.0</td><td>4 de agosto de 2026</td><td>Equipo de Proyecto (7mo Informática, Instituto Leonardo Murialdo)</td><td>Reorganización estructural del documento: (1) se crea la Sección 5 “Hardware”, consolidando ahí todas las especificaciones técnicas de hardware antes dispersas en Restricciones e Interfaces (incluye una nueva tabla de componentes por bloque); (2) se crea la Sección 9 “Lineamientos Futuros” con posibles líneas de crecimiento del proyecto; (3) se agrega el Product Backlog (épicas y sprint backlog) dentro de la Oferta de Gestión; (4) en la Oferta Económica se fusiona “Proveedores de insumos varios” dentro de “Proveedores de insumos electrónicos”; (5) se actualizan los montos de la tabla de presupuesto con las cifras exactas de la Lista de Componentes; (6) se reescribe la responsabilidad del Equipo de Desarrollo en el Contrato con un enfoque de proyecto integral, no solo electrónico; (7) se reemplaza “planta” por “fábrica” en todo el documento; y (8) el diagnóstico del problema (árbol de causas y soluciones) y la documentación de avances (entrevistas, minutas, bitácora técnica) se externalizan a un documento aparte: la Bitácora de Proyecto.</td></tr><tr><td>4.0</td><td>1 de septiembre de 2026</td><td>Equipo de Proyecto (7mo Informática, Instituto Leonardo Murialdo)</td><td>Revisión integral conforme al manual de buenas prácticas de la UTN: se incorpora el índice; se convierten en tabla las definiciones (2.4), las características de los usuarios (3.3), los requerimientos funcionales (4.1) y no funcionales (4.2); se agregan las secciones 4.6 Interfaces de hardware (RHW) y 4.7 Limitaciones del alcance (LIM); se suma el modelo entidad-relación de la base de datos (3.2.3) y el respaldo y recuperación de datos (3.4.8); se actualiza la lista de componentes (5.6) y la estimación económica (8) con los valores vigentes; se completa el punto 7.1 Proveedores de Internet; se unifica el cronograma en 8 etapas; se resuelve la contradicción sobre el armado en protoboard, quedando la entrega sobre placa universal soldada; y se eliminan los restos de funciones de monitoreo que no forman parte del alcance (alarma por rotura de hilo y parada de emergencia por software).</td></tr></tbody></table></div>
+<p class="cap">Tabla 1. Control de cambios del documento.</p>
+</section>
+<section id="s2">
+<h2><span class="n">2</span>Introducción</h2>
+<h3 id="s2-1">2.1. Propósito</h3>
+<p>El objetivo primordial de este proyecto es modernizar digitalmente un telar Vamatex C201 que se ubica en una fábrica textil en Billinghurst, Buenos Aires mediante el desarrollo e implementación de un sistema de control electrónico y un editor web interactivo para telares industriales planos mecánicos que carecen de PLC. El sistema busca digitalizar la creación y gestión de matrices de tejido a través de una matriz visual, reemplazando la dependencia de configuraciones puramente mecánicas y laboriosas. Esto permite agilizar drásticamente los tiempos de cambio de producción, mantener un archivo de diseños guardados y otorgar control directo de ejecución sobre la maquinaria (iniciar, pausar y retroceder para corregir errores físicos en tiempo real), optimizando así la productividad general y reduciendo el margen de error operativo.</p>
+<h3 id="s2-2">2.2. Alcance</h3>
+<p>El sistema contempla el diseño, desarrollo e implementación de una solución de automatización y supervisión industrial para telares, estructurada en dos niveles de madurez tecnológica:</p>
+<p>Nivel 1 (MVP — Control de Marcha/Pausa y Supervisión Externa): Constituye el alcance actual del proyecto. Consiste en una intervención no invasiva sobre la electrónica de control del telar, operando exclusivamente sobre la línea de encendido y detención (Play/Pausa) mediante relés optoacoplados conectados en paralelo a la botonera física existente. La sincronización y el conteo de pasadas se ejecutan a través de un sensor inductivo/óptico montado sobre la estructura mecánica. La persistencia local y la gestión del catálogo de matrices se sincronizan con una plataforma web en la nube.</p>
+<p>Nivel 2 (Evolución por Marcos — intervención de las bobinas de selección): Etapa en desarrollo orientada al control directo de la calada y selección de tramas. Tras la inspección real del telar (Vamatex C201, matrícula 1104, revisado en 1989 según su placa de datos) se confirmó que la máquina ya trabaja por grupos de marcos mediante una cinta de papel perforada angosta que acciona palancas de selección (no hilo por hilo), con un máximo confirmado de 8 matrices simultáneas, por lo que esta etapa reemplaza esa función. Se descartaron los actuadores rotativos evaluados inicialmente porque no soportan la carga cíclica, la vibración ni la pelusa del telar real, e implicaban comprar solenoides de todos modos; se optó por ir directo al retrofit definitivo con un banco de 3 bobinas de selección/electroimanes de 12 V (máximo real del telar, confirmado) accionados mediante un registro de desplazamiento 74HC595 y transistores MOSFET (IRLZ44N) con diodos de protección flyback (1N4007), replicando la acción binaria empuja/no-empuja de la cinta perforada. El primer paso obligatorio de esta etapa es medir gratuitamente en el telar la fuerza, el recorrido y el tiempo por pasada (ver Guía de Medición del Telar) para poder dimensionar y comprar los solenoides correctos.</p>
+<h3 id="s2-3">2.3. Personal Involucrado</h3>
+<p>Equipo Desarrollador: Alumnos de 7mo Informática (Ciclo 2026) del Instituto Leonardo Murialdo. Nombres y roles específicos:</p>
+<p>Manfredo, Juan Ignacio: Project Manager - Desarrollador Backend</p>
+<p>Lede Buschiazzo, Lautaro: Encargado 01 de Infra. de MCU - Administrador de BD</p>
+<p>Ferrando, Jaco: Encargado 02 de Infra. de MCU - Diseñador UX/UI</p>
+<p>Iannone, Mia: Desarrollador 02 - Front End</p>
+<p>Montenegro, Franco: Encargado de Infra. de Red</p>
+<p>Equipo de Partners: Alumnos de 7mo año (Ciclo 2026) de otras modalidades del Instituto Leonardo Murialdo, encargados de apoyar al Equipo Desarrollador. Nombres y modalidad específica:</p>
+<p>Zamora, Nahuel: 7mo Electrónica</p>
+<p>Muriel, Funes: 7mo Multimedios</p>
+<p>Docente / Supervisora: Prof. Pedaci, Lourdes (Cátedra de Evaluación de Proyectos).</p>
+<p>Cliente / Entrevistado: Encargado y personal de mantenimiento de la Fábrica Textil Industrial: Norberto Ferrando.</p>
+<h3 id="s2-4">2.4. Definición, acrónimos y abreviaturas <span class="utn">Buenas Prácticas UTN p.56</span></h3>
+<div class="tw"><table><thead><tr><th>Término</th><th>Significado</th><th>Descripción en el contexto del proyecto</th></tr></thead><tbody><tr><td>API</td><td>Application Programming Interface</td><td>Reglas por las que la web, la app y el ESP32 le piden datos al backend. Ninguno accede a la base de datos directamente.</td></tr><tr><td>BOM</td><td>Bill of Materials</td><td>Lista de materiales de fabricación, con cantidad y función de cada componente.</td></tr><tr><td>CRUD</td><td>Create, Read, Update, Delete</td><td>Las cuatro operaciones sobre los dibujos guardados: crear, consultar, modificar y borrar.</td></tr><tr><td>Dobby</td><td>—</td><td>Mecanismo del telar que decide qué marcos suben en cada pasada. Es lo que interviene el sistema en el Nivel 2.</td></tr><tr><td>EMI</td><td>Electromagnetic Interference</td><td>Interferencia electromagnética: ruido eléctrico de los motores que puede afectar las señales de control.</td></tr><tr><td>ESP32</td><td>—</td><td>Microcontrolador con WiFi que actúa de puente entre la página web y la botonera del telar.</td></tr><tr><td>GPIO</td><td>General Purpose Input/Output</td><td>Pin del microcontrolador configurable como entrada o salida.</td></tr><tr><td>IP65</td><td>—</td><td>Grado de protección del gabinete: estanco al polvo y a chorros de agua. Necesario por la pelusa textil.</td></tr><tr><td>JSONB</td><td>JavaScript Object Notation Binary</td><td>Formato en que PostgreSQL almacena las matrices del dibujo, permitiendo consultarlas sin convertirlas.</td></tr><tr><td>Ligamento</td><td>—</td><td>Patrón de cruce entre los hilos de urdimbre y trama que forma el dibujo de la tela.</td></tr><tr><td>MVP</td><td>Minimum Viable Product</td><td>Producto mínimo viable: la versión más chica que ya resuelve el problema del cliente.</td></tr><tr><td>Pasada</td><td>—</td><td>Cada inserción de un hilo de trama a lo ancho del telar. Una fila del patrón equivale a una pasada.</td></tr><tr><td>PCB</td><td>Printed Circuit Board</td><td>Placa de circuito impreso.</td></tr><tr><td>PLC</td><td>Programmable Logic Controller</td><td>Controlador lógico programable. Alternativa industrial descartada por costo.</td></tr><tr><td>RF / RNF</td><td>—</td><td>Requerimiento funcional / requerimiento no funcional.</td></tr><tr><td>WDT</td><td>Watchdog Timer</td><td>Temporizador que reinicia el microcontrolador si el programa queda colgado.</td></tr></tbody></table></div>
+<p class="cap">Tabla 2. Definiciones, acrónimos y abreviaturas utilizados en el documento.</p>
+<h3 id="s2-5">2.5. Referencias</h3>
+<p>Universidad Tecnológica Nacional. (2018). Buenas prácticas para la dirección y gestión de proyectos informáticos. Editorial UTN. (Estructuras de tablas e indicadores: pp. 56-62).</p>
+<h3 id="s2-6">2.6. Resumen Ejecutivo</h3>
+<p>La industria textil de pequeña y mediana escala, con maquinaria de accionamiento mecánico enfrenta serias limitaciones operativas debido a la dependencia de procesos manuales en la configuración de ligamentos. La falta de automatización mecatrónica e integración digital incrementa la tasa de error humano en el levantamiento de lizos, lo que genera desperdicio ineficiente de materia prima y tiempos muertos considerables en la línea de producción.  Este proyecto aborda dicha problemática mediante el desarrollo de una solución integral IoT que digitaliza el diseño de matrices y automatiza el control mecánico del telar. Gracias a la combinación de una interfaz web intuitiva, un backend robusto y base de datos PostgreSQL alojada en la nube (Neon), se garantiza una producción textil continua, precisa y resiliente frente a interrupciones eléctricas o caídas de conectividad de red.</p>
+</section>
+<section id="s3">
+<h2><span class="n">3</span>Descripción General</h2>
+<h3 id="s3-1">3.1. Perspectiva del producto</h3>
+<p>El sistema se define como un desarrollo de retrofit tecnológico. No sustituye a las máquinas existentes ni añade actuadores de control directo sobre el motor principal, sino que actúa como una capa externa y autónoma de supervisión digital que coexiste con la infraestructura eléctrica y mecánica actual de la fábrica. El diagnóstico completo del problema (árbol de causas, efectos y soluciones integradas) se documenta por separado en la Bitácora de Proyecto, que el equipo mantiene actualizada junto con el registro de entrevistas, minutas y avances técnicos del período.</p>
+<h3 id="s3-2">3.2. Funcionalidad del producto y sistemas de diseño (ui/ux)</h3>
+<p>Inicio (Dashboard Central): Contiene la consola de ejecución principal con los botones de &quot;Play&quot; (Marcha), &quot;Pausa&quot; y &quot;Retroceder&quot; para interactuar con el ESP32. Ofrece feedback visual en vivo resaltando en la pantalla la fila exacta de la matriz que el telar está procesando mecánicamente en cada milisegundo. Muestra indicadores clave (KPIs) en tiempo real como velocidad (RPM), contador de pasadas efectivas y un banner de alarma destacado en rojo ante alertas de rotura de hilo.</p>
+<p>Editor de Matrices: Lienzo interactivo cuadriculado (HTML/CSS/JS) donde el usuario hace clic para alternar el estado de las celdas (1 = levantado, 0 = abajo). Incluye inputs numéricos para definir el tamaño de la matriz (hilos de urdimbre y pasadas de trama) junto con herramientas de agilidad rápida como &quot;Limpiar grilla&quot;, &quot;Invertir colores&quot; y &quot;Completar fila&quot;. Ofrece previsualización gráfica del ligamento (Tafetán, Sarga, Raso) antes de su exportación.</p>
+<p>Biblioteca de Matrices (Gestión CRUD): Explorador de matrices en un listado lateral para visualizar, seleccionar y cargar rápidamente diseños históricos. Permite realizar operaciones completas de creación (guardar nuevo patrón sin recargar la página), lectura (Read), actualización (sobrescribir cambios en un patrón viejo) y eliminación segura para mantener limpia la biblioteca en PostgreSQL.</p>
+<h4 id="s3-2-1">3.2.1. Guía de Estilos y Especificación Visual (Design System)</h4>
+<p>Paleta Cromática: Modo claro con fondo Crema/Hueso (#FAF5EC) y modo oscuro con Púrpura Profundo (#2A081A), para reducir la fatiga visual en jornadas largas. Color de marca e interacción: Púrpura (#5C113A) para botones de acción principal (“Aplicar”, “Guardar”, “Nuevo”) e iconos activos, con degradado de Púrpura (#512940 a #8A3A6B) en la cabecera. Texto principal en Púrpura oscuro/casi negro (#2D081C), texto secundario en Gris Púrpura (#7A5C6D) y texto invertido en Blanco (#FFFFFF) sobre botones o en modo oscuro. La relación de contraste entre el púrpura primario y el fondo crema es de 12,11:1, superando el nivel AAA de las pautas WCAG (mínimo 7:1 para texto normal).</p>
+<p>Tipografía y Legibilidad: Century Gothic como fuente principal, con Questrial (Google Fonts) como respaldo de código abierto: al ser Century Gothic una fuente comercial que no puede empaquetarse ni cargarse desde un CDN gratuito, se usa cuando el sistema operativo del usuario ya la tiene instalada y, si no, cae a Questrial (la alternativa libre geométricamente más parecida). El diseño responsivo define breakpoints en 320px (mobile, una columna, elementos táctiles mínimos de 44x44px), 768px (tablet, grilla de dos columnas en la biblioteca) y 1024px (escritorio, barra lateral o menú superior).</p>
+<h4 id="s3-2-2">3.2.2. Arquitectura Backend y Modelo de Datos (PostgreSQL)</h4>
+<p>El backend, desarrollado en Node.js con Express, gestiona la lógica de negocio (transacciones, validaciones) y expone una API REST que es el único punto de acceso a la base de datos: tanto la web como el firmware del ESP32 hablan con este mismo backend por la misma API, y ninguno de los dos toca la base de datos de forma directa. La persistencia de datos se maneja en PostgreSQL, alojado en la nube sobre Neon, mediante el siguiente esquema relacional:</p>
+<div class="tw"><table><thead><tr><th>TABLA</th><th>CLAVE PRIMARIA</th><th>CAMPOS PRINCIPALES</th><th>PROPÓSITO</th></tr></thead><tbody><tr><td>patrones</td><td>id</td><td>nombre, filas, columnas, matriz_pasadas (JSONB), matriz_ligamento (JSONB), colores_filas (JSONB), metadata (JSONB)</td><td>Biblioteca de matrices de tejido, independiente de los telares.</td></tr><tr><td>telares</td><td>id</td><td>codigo, nombre, estado (apagado/tejiendo/pausado/error), patron_actual_id</td><td>Estado en tiempo real de cada máquina y qué patrón tiene asignado.</td></tr><tr><td>historial_producción</td><td>id</td><td>telar_id, patron_id, fecha_inicio, fecha_fin, pasadas_totales, fila_actual, columna_actual, pasada_actual, vueltas_completadas, estado</td><td>Trazabilidad de cada producción: posición exacta para poder retroceder, sin necesidad de reconstruir nada.</td></tr><tr><td>errores_log</td><td>id</td><td>telar_id, titulo, mensaje, codigo, creado_at</td><td>Registro de errores del sistema (reemplaza el log local que antes vivía en el navegador).</td></tr></tbody></table></div>
+<p class="cap">Tabla 3. Entidades de la base de datos y su propósito.</p>
+<h4 id="s3-2-3">3.2.3. Esquema de Base de Datos y Estructura JSONB</h4>
+<figure><img src="mer.png" alt="Figura de la seccion 3.2.3">
+<p>El modelo de datos se organiza en cinco entidades. Los patrones guardan el dibujo en dos campos JSONB —la matriz de pasadas y la de ligamento—, lo que permite consultarlos desde PostgreSQL sin convertirlos previamente. Los telares registran su estado y el patrón asignado, y el historial de producción lleva la posición exacta del tejido en curso, con la restricción de que solo puede existir una producción abierta por telar. El diagrama siguiente resume las entidades y sus relaciones.</p>
+<figcaption>Figura 1. Modelo entidad-relación de la base de datos del sistema.</figcaption></figure>
+<p>El almacenamiento persistente utiliza PostgreSQL (alojado en Neon) aprovechando sus capacidades relacionales y el tipo de dato nativo JSONB para las matrices de patrones. A continuación, el esquema real:</p>
+<pre>CREATE TABLE patrones (
+id                SERIAL PRIMARY KEY,
+nombre            TEXT NOT NULL UNIQUE,
+filas             INTEGER NOT NULL CHECK (filas &gt; 0),
+columnas          INTEGER NOT NULL CHECK (columnas &gt; 0),
+matriz_pasadas    JSONB NOT NULL,   -- repeticiones de fila (enteros 0,1,2,3...)
+matriz_ligamento  JSONB,            -- binario (0/1), derivado automáticamente
+colores_filas     JSONB,            -- color de hilo por fila
+metadata          JSONB,            -- ej: {&quot;tipo&quot;: &quot;Tafetán&quot;}
+creado_at         TIMESTAMPTZ NOT NULL DEFAULT now(),
+modificado_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE telares (
+id                SERIAL PRIMARY KEY,
+codigo            TEXT NOT NULL UNIQUE,   -- ej: &quot;TELAR-01&quot;
+nombre            TEXT,
+estado            TEXT NOT NULL DEFAULT &#x27;apagado&#x27;
+CHECK (estado IN (&#x27;apagado&#x27;,&#x27;tejiendo&#x27;,&#x27;pausado&#x27;,&#x27;error&#x27;)),
+patron_actual_id  INTEGER REFERENCES patrones(id) ON DELETE SET NULL,
+creado_at         TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE historial_produccion (
+id                   SERIAL PRIMARY KEY,
+telar_id             INTEGER NOT NULL REFERENCES telares(id),
+patron_id            INTEGER NOT NULL REFERENCES patrones(id),
+fecha_inicio         TIMESTAMPTZ NOT NULL DEFAULT now(),
+fecha_fin            TIMESTAMPTZ,        -- NULL mientras está en curso
+pasadas_totales      INTEGER DEFAULT 0,
+fila_actual          INTEGER DEFAULT 0,  -- posición exacta para retroceder
+columna_actual       INTEGER DEFAULT 0,
+pasada_actual        INTEGER DEFAULT 0,
+vueltas_completadas  INTEGER DEFAULT 0,  -- el tejido no tiene &quot;final&quot;: es un bucle
+estado               TEXT NOT NULL DEFAULT &#x27;en_curso&#x27;
+CHECK (estado IN (&#x27;en_curso&#x27;,&#x27;finalizado&#x27;,&#x27;detenido_manual&#x27;))
+);
+CREATE TABLE errores_log (
+id          SERIAL PRIMARY KEY,
+telar_id    INTEGER REFERENCES telares(id),
+titulo      TEXT,
+mensaje     TEXT,
+codigo      TEXT,
+creado_at   TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+-- Login biométrico (WebAuthn) — la huella NUNCA se guarda ni viaja al
+-- servidor: solo se almacenan las llaves públicas de los dispositivos.
+CREATE TABLE usuarios (
+id            SERIAL PRIMARY KEY,
+usuario       TEXT NOT NULL UNIQUE,
+nombre        TEXT,
+webauthn_id   TEXT NOT NULL UNIQUE,
+recovery_hash TEXT,
+creado_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE credenciales_biometricas (
+id            SERIAL PRIMARY KEY,
+usuario_id    INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+credential_id TEXT NOT NULL UNIQUE,
+public_key    TEXT NOT NULL,
+counter       BIGINT NOT NULL DEFAULT 0,
+creado_at     TIMESTAMPTZ NOT NULL DEFAULT now()
+);</pre>
+<div class="box">
+  <h5>Probalo: dibujá un patrón y ejecutalo</h5>
+  <p style="font-size:.9rem;color:var(--gray-md);margin-bottom:1rem">Cada fila que se ejecuta indica qué elementos se activan en esa pasada del telar. Las columnas de una fila no se recorren de a una: se envían juntas, porque son simultáneas.</p>
+  <div class="gw">
+    <div>
+      <div id="grid" class="gr"></div>
+      <div style="margin-top:.9rem;display:flex;gap:.45rem;flex-wrap:wrap">
+        <button class="btn" id="play">▶ Reproducir</button>
+        <button class="btn g" id="ejemplo">Cargar ejemplo</button>
+        <button class="btn g" id="clear">Limpiar</button>
+      </div>
+    </div>
+    <div class="out" id="out">Dibujá algo en la grilla y apretá reproducir.</div>
+  </div>
+</div>
+<h4 id="s3-2-4">3.2.4. Estructura de los Campos JSONB (matriz_pasadas y matriz_ligamento)</h4>
+<p>En la aplicación web, la grilla del editor guarda en matriz_pasadas los valores enteros de cada celda (0, 1, 2, 3…). Cada FILA de la matriz equivale a una PASADA del telar, y las columnas de esa fila son los elementos que se seleccionan de forma simultánea en esa pasada. Un valor mayor a 1 indica que la fila entera se repite esa cantidad de veces antes de pasar a la siguiente, tomándose el mayor valor de la fila: una fila se repite completa, no puede repetirse parcialmente. Una fila sin ningún valor activo sigue siendo una pasada válida, en la que simplemente no se activa ningún elemento. El campo matriz_ligamento guarda la misma grilla en formato binario, para la representación visual del dibujo.</p>
+<pre>{</pre>
+<p>&quot;nombre&quot;: &quot;Tafetán simple&quot;,</p>
+<p>&quot;filas&quot;: 4,</p>
+<p>&quot;columnas&quot;: 4,</p>
+<p>&quot;matriz_pasadas&quot;: [</p>
+<pre>[1, 0, 1, 0],
+[0, 2, 0, 1],
+[1, 0, 3, 0],
+[0, 1, 0, 1]
+],</pre>
+<p>&quot;matriz_ligamento&quot;: [</p>
+<pre>[1, 0, 1, 0],
+[0, 1, 0, 1],
+[1, 0, 1, 0],
+[0, 1, 0, 1]
+],</pre>
+<p>&quot;colores_filas&quot;: [&quot;#5C113A&quot;, &quot;#2A081A&quot;, &quot;#5C113A&quot;, &quot;#2A081A&quot;]</p>
+<pre>}</pre>
+<h3 id="s3-3">3.3. Características de los Usuarios <span class="utn">Buenas Prácticas UTN p.56/57</span></h3>
+<div class="tw"><table><thead><tr><th>Tipo de usuario</th><th>Formación</th><th>Actividades</th></tr></thead><tbody><tr><td>Dueño de la fábrica</td><td>Formación técnica en el oficio textil, adquirida en la práctica. Sin formación informática formal; maneja el celular a nivel de usuario.</td><td>Define qué dibujos se tejen y valida la producción. Usa la biblioteca para elegir el patrón y la consola de inicio para verificar el avance.</td></tr><tr><td>Operario de telar</td><td>Conocimiento práctico del telar y del oficio. Sin formación informática. Trabaja con protectores auditivos y guantes.</td><td>Carga el dibujo, arranca y pausa la máquina, y corrige la posición con Retroceder ante una rotura de hilo. Es el usuario principal del sistema.</td></tr><tr><td>Encargado de mantenimiento</td><td>Conocimientos de electricidad y mecánica industrial. Nociones básicas de electrónica.</td><td>Interviene ante fallas del nodo de control: revisa el gabinete, las conexiones y el estado de los relés siguiendo el manual de instalación.</td></tr><tr><td>Equipo de desarrollo</td><td>Estudiantes de 7mo año de la especialidad Informática.</td><td>Mantiene el software y el firmware, aplica las migraciones de base de datos y ejecuta el plan de respaldo y recuperación.</td></tr></tbody></table></div>
+<p class="cap">Tabla 4. Características de los usuarios del sistema.</p>
+<h3 id="s3-4">3.4. Restricciones <span class="utn">Buenas Prácticas UTN p.57</span></h3>
+<h4 id="s3-4-1">3.4.1. Políticas reguladoras:</h4>
+<p>Toda la arquitectura lógica se apoya en el uso de plataformas y herramientas libres, abiertas y sin costos de licenciamiento corporativo: Arduino IDE 2 y sus librerías (WiFi.h, HTTPClient, ArduinoJson), Node.js con Express para el backend, PostgreSQL como motor de base de datos y el plan gratuito de Neon para su alojamiento en la nube.</p>
+<h4 id="s3-4-2">3.4.2. Interfaces con otras aplicaciones</h4>
+<p>El firmware del ESP32 se acopla al backend propio (Node.js/Express) exclusivamente por HTTP: sondea el endpoint GET /api/telares/1 cada 2,5 s para conocer el estado deseado del telar y reporta fallas por POST /api/errores. No existe integración con Firebase ni con bases de datos de series temporales externas: toda la persistencia vive en la misma base PostgreSQL (Neon) que usa la web.</p>
+<h4 id="s3-4-3">3.4.3. Función de control</h4>
+<p>El sistema implementa un login biométrico mediante huella dactilar (estándar WebAuthn/FIDO2). La huella nunca se guarda ni viaja al servidor: el dispositivo del usuario genera un par de llaves, la privada permanece en el hardware del teléfono y solo la pública se envía al servidor para verificar la firma del desafío en cada inicio de sesión. Los primeros 3 usuarios pueden registrarse libremente; a partir del cuarto, el alta requiere un código de invitación generado por un usuario ya registrado (vence a los 7 días). Si el usuario cambia de dispositivo o pierde el acceso a su huella, puede recuperarlo con un código de recuperación de un solo uso, entregado al momento de registrar la huella y guardado siempre hasheado (nunca en texto plano).</p>
+<h4 id="s3-4-4">3.4.4. Requisitos del lenguaje</h4>
+<p>Las interfaces gráficas y los manuales de usuario deben ser desarrollados completamente en idioma español, adaptados al vocabulario propio de la fábrica textil. El firmware requiere lenguaje C++ simplificado.</p>
+<h4 id="s3-4-5">3.4.5. Protocolos señalados</h4>
+<p>Conectividad inalámbrica Wi-Fi (802.11 b/g/n) entre el ESP32 y el router de fábrica. La comunicación entre la web, el backend y el ESP32 se realiza íntegramente por HTTP/API REST (JSON sobre HTTPS): no se utiliza MQTT ni WebSockets en el stack actual. El ESP32 no ejecuta ninguna acción cuando el Wi-Fi o el backend no responden (fail-safe): el telar queda gobernado por su botonera física, conectada en paralelo y que nunca deja de funcionar.</p>
+<p>El sondeo del ESP32 al backend (Nivel 1) es simple: consulta el estado del telar (apagado/tejiendo/pausado/error) y, ante un cambio, dispara un pulso de 300 ms en el relé de Marcha o de Pausa correspondiente. Para el Nivel 2 (control de marcos con solenoides), la secuencia completa del patrón se descarga una única vez a memoria del ESP32 y se ejecuta localmente pasada a pasada, sin depender de la red; el avance se reporta al backend en una cola acotada a 500 registros para no saturar el servidor tras una caída prolongada de conectividad. La siguiente tabla resume los endpoints principales que consumen el ESP32 y la web:</p>
+<div class="tw"><table><thead><tr><th>MÉTODO Y ENDPOINT</th><th>CONSUMIDOR</th><th>DESCRIPCIÓN</th></tr></thead><tbody><tr><td>GET /api/telares/1</td><td>ESP32 (sondeo c/2,5s)</td><td>Estado deseado del telar (apagado/tejiendo/pausado/error) y patrón asignado.</td></tr><tr><td>POST /api/telares/:id/asignar-patron</td><td>Web</td><td>Asigna un patrón al telar y abre una fila en historial_produccion (posición 0,0,0).</td></tr><tr><td>POST /api/telares/:id/avanzar</td><td>ESP32 / Web</td><td>Avanza N pasos (fire-and-forget); nunca “termina”, vuelve a la fila 0 y suma vueltas_completadas.</td></tr><tr><td>POST /api/telares/:id/retroceder</td><td>Web</td><td>Retrocede una pasada completa (RF08); devuelve al_inicio: true si no se puede retroceder más.</td></tr><tr><td>POST /api/errores</td><td>ESP32</td><td>Registra una falla del firmware o de la comunicación en errores_log.</td></tr></tbody></table></div>
+<p class="cap">Tabla 5. Endpoints principales de la API consumidos por la web y el ESP32.</p>
+<h4 id="s3-4-6">3.4.6. Requisitos de fiabilidad</h4>
+<p>Ante la falta de señal o pérdida de conectividad, el firmware del Nivel 1 no ejecuta ninguna acción sobre el telar: no arranca ni pausa por su cuenta, y la botonera física sigue funcionando en paralelo sin interrupciones. Este comportamiento a prueba de fallos es el criterio rector del sistema.
+
+El conteo de pasadas se resuelve mediante el sensor inductivo del Bloque C, incluido en el alcance de esta etapa. El sensor se monta sobre un eje del telar que completa un giro por pasada y entrega un pulso por cada una, de modo que el avance registrado por el sistema corresponde al movimiento real de la máquina y no a una estimación por tiempo. Su punto exacto de montaje se determina con el telar en marcha, identificando qué eje guarda esa relación de giro, y se fija mediante una escuadra tomada de un tornillo existente del chasis, sin perforar la máquina. Hasta que el sensor esté instalado y calibrado, el avance mostrado es una estimación y puede desfasarse si el telar trabaja a una velocidad distinta de la prevista; ese desfase se corrige con la función de confirmación de posición.</p>
+<h4 id="s3-4-7">3.4.7. Credibilidad de la aplicación</h4>
+<p>Para evitar avisos incorrectos, el algoritmo valida la interpretación de los pulsos del sensor de pasada durante un período inicial de prueba, comprobando que el conteo de ciclos coincida con la operación real de la máquina antes de habilitar cualquier notificación basada en esa medición. Mientras esa validación no se complete, el sistema informa únicamente las señales que puede verificar: las órdenes que él mismo envió y los eventos de uso manual de la botonera detectados por el nodo de control.</p>
+<h4 id="s3-4-8">3.4.8. Consideraciones de seguridad: Inmunidad crítica ambiental</h4>
+<p>Inmunidad crítica ambiental: al ser la pelusa textil altamente inflamable y conductora bajo humedad, la placa debe estar protegida con barniz dieléctrico (conformal coating). El nodo de control se aloja en un gabinete estanco IP65 con prensacables, montado sobre pared o columna y no sobre el chasis de la máquina, para que la vibración no afecte las conexiones.</p>
+<p>Aislamiento Eléctrico: Es obligatorio implementar aislamiento galvánico mediante optoacopladores (ej. PC817) para recibir señales del telar, proteger la entrada de alimentación con un fusible lento de 1A y emplear cables mallados multifilares conectados a tierra únicamente del lado del microcontrolador para bloquear bucles de masa.</p>
+<p>Respaldo y recuperación de datos: toda la información del sistema (patrones, historial de producción y usuarios) vive en la base de datos alojada en Neon. La protección se organiza en tres capas: la restauración instantánea que ofrece el propio servicio, con una ventana de 6 horas en el plan actual; un respaldo automático diario mediante una tarea programada que ejecuta pg_dump y guarda el volcado comprimido en un repositorio externo; y una copia manual antes de cada migración o demostración. La recuperación se elige según el momento en que se detecte el problema: dentro de las 6 horas, restauración instantánea sin cambiar la cadena de conexión; pasado ese plazo, restauración desde el último respaldo diario, con una pérdida máxima de un día de trabajo. Un respaldo que nunca se probó no es un respaldo: se incluye una restauración de prueba sobre una base de desarrollo en cada visita de mantenimiento.</p>
+<h3 id="s3-5">3.5. Suposiciones y dependencias</h3>
+<p>Infraestructura eléctrica: Se confirmó por medición directa que en el telar C201 la botonera recibe 24V AC (no DC). Para otros telares se sigue asumiendo 24V DC o 220V AC hasta confirmar caso por caso. La placa de monitoreo no se alimenta desde esa línea: usa una fuente propia de 220V, independiente del telar.</p>
+<p>Integración técnica: El éxito de la implementación depende de la aprobación formal del encargado para realizar la integración técnica con el cableado de control del telar (retrofit de señales) y de la ejecución de visitas técnicas complementarias para evaluar la cobertura real del Wi-Fi en los pasillos de producción y realizar la toma de mediciones eléctricas precisas sobre las líneas nativas de la máquina.</p>
+<p>Información operativa: Dimensiones exactas de fábrica, turnos de trabajo y cantidad de telares en operación activa:</p>
+<p>Dimensiones: 400 m²</p>
+<p>Turnos de Trabajo: Jornada de 10 horas de Lunes a Sábado</p>
+<p>Cantidad de telares (operando activamente): 6</p>
+<h3 id="s3-6">3.6. Evolución previsible del sistema</h3>
+<p>En la Fase 2 (Autonomía) se prevé la eliminación total de la dependencia de conectividad a internet mediante la instalación física en fábrica de un servidor local redundante que centralice el alojamiento absoluto de la base de datos PostgreSQL y las interfaces, garantizando la continuidad operativa incluso ante fallas de la red externa. Mientras que en la Fase 3 (Escalamiento y Digitalización) se proyecta escalar la solución a toda la flota de telares de la fábrica. En esta etapa, el desarrollo se centrará en optimizar los algoritmos de filtrado y procesamiento de las señales nativas (24V) para incrementar la precisión en la métrica de ciclos y paradas sin añadir hardware externo. Finalmente, se evaluará la migración del mecanismo Jacquard mecánico a un sistema electrónico de selección digital de matrices, logrando la sincronización total de la maquinaria con la base de datos central de secuencias de tejido.</p>
+</section>
+<section id="s4">
+<h2><span class="n">4</span>Requisitos Específicos</h2>
+<h3 id="s4-1">4.1. Requerimientos funcionales <span class="utn">Buenas Prácticas UTN p.59/60</span></h3>
+<div class="tw"><table><thead><tr><th>ID</th><th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Prioridad</th><th>Estado</th></tr></thead><tbody><tr><td>RF01</td><td>Interfaz base y consola de inicio</td><td>Esencial</td><td>Panel de inicio de alto contraste que divide el espacio entre el área de control y la visualización del dibujo en curso, legible con guantes y a distancia.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF02</td><td>Editor matricial interactivo</td><td>Esencial</td><td>Lienzo cuadriculado donde el operario dibuja el ligamento tocando las celdas. Cada fila representa una pasada y cada columna un marco.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF03</td><td>Configuración dinámica de dimensiones</td><td>Esencial</td><td>Permite definir filas y columnas de la matriz (de 2 a 32 en cada dimensión), para adaptarse a distintos telares sin tocar el código.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF04</td><td>Herramientas de agilidad en el diseño</td><td>Deseable</td><td>Acciones rápidas de limpiar grilla, invertir valores y repetir bloques, para acelerar el trabajo del operario.</td><td>Media</td><td>Implementado</td></tr><tr><td>RF05</td><td>Persistencia CRUD de dibujos</td><td>Esencial</td><td>Biblioteca que permite crear, consultar, modificar y eliminar los dibujos guardados en la base de datos.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF06</td><td>Comandos de ejecución de máquina</td><td>Esencial</td><td>Botones de Marcha, Pausa y Retroceder que accionan los relés del ESP32 sobre la botonera del telar. El botón Detener fue eliminado: la función la cumple Pausa.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF07</td><td>Realimentación visual en tiempo real</td><td>Esencial</td><td>Mientras el telar teje, la pantalla resalta la fila que se está ejecutando y muestra el estado real de la máquina.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF08</td><td>Retroceso de una pasada</td><td>Esencial</td><td>Permite retroceder el tejido una pasada completa: pausa la ejecución, mueve la posición una fila atrás y pulsa el relé de Retroceder del telar.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF09</td><td>Resiliencia ante caídas de red</td><td>Esencial</td><td>Ante cortes de WiFi o caída del backend, el firmware permanece inactivo (fail-safe) en vez de accionar la máquina con información desactualizada.</td><td>Alta</td><td>Implementado</td></tr><tr><td>RF10</td><td>Sensado del uso manual de la botonera</td><td>Esencial</td><td>Si un operario aprieta Marcha, Pausa o Retroceder en la máquina, el ESP32 lo detecta por optoacoplador y la web refleja el estado real del telar.</td><td>Alta</td><td>En implementación</td></tr></tbody></table></div>
+<p class="cap">Tabla 6. Requerimientos funcionales del sistema.</p>
+<h3 id="s4-2">4.2. Requerimentos No Funcionales (RNF) <span class="utn">Buenas Prácticas UTN p.59/60</span></h3>
+<div class="tw"><table><thead><tr><th>ID</th><th>Categoría</th><th>Nombre</th><th>Descripción</th><th>Prioridad</th></tr></thead><tbody><tr><td>RNF01</td><td>Desempeño</td><td>Desempeño y latencia</td><td>El ESP32 sondea el backend cada 2,5 s y el pulso del relé dura 300 ms: una orden dada en la web se refleja en la máquina en menos de 3 segundos.</td><td>Alta</td></tr><tr><td>RNF02</td><td>Fiabilidad</td><td>Arranque seguro</td><td>Al energizarse o reiniciarse, ningún relé debe accionarse. Se garantiza con resistencias de polarización externas y escribiendo el nivel de reposo antes de configurar los pines.</td><td>Crítica</td></tr><tr><td>RNF03</td><td>Usabilidad</td><td>Ergonomía de interfaz táctil</td><td>Botones de al menos 44 px, alto contraste y tipografía legible, para poder operarse con guantes y con la iluminación deficiente de la planta.</td><td>Alta</td></tr><tr><td>RNF04</td><td>Seguridad</td><td>Aislamiento eléctrico</td><td>Todo contacto con el telar se hace por contacto seco de relé u optoacoplador. El sistema se alimenta de una fuente propia de 220 V, independiente de la máquina.</td><td>Crítica</td></tr><tr><td>RNF05</td><td>Mantenibilidad</td><td>Respaldo y recuperación de datos</td><td>Restauración instantánea de 6 horas más respaldo automático diario. La restauración se prueba en cada visita de mantenimiento.</td><td>Alta</td></tr><tr><td>RNF06</td><td>Portabilidad</td><td>Independencia de dispositivo</td><td>Funciona en el navegador de cualquier celular o computadora de la planta, sin instalación previa.</td><td>Media</td></tr><tr><td>RNF07</td><td>Fiabilidad</td><td>Tolerancia ambiental</td><td>Gabinete IP65 montado fuera del chasis para no recibir vibración, con la placa protegida con barniz dieléctrico contra la pelusa textil.</td><td>Alta</td></tr></tbody></table></div>
+<p class="cap">Tabla 7. Requerimientos no funcionales del sistema.</p>
+<h3 id="s4-3">4.3. Interfaces de usuario <span class="utn">Buenas Prácticas UTN p.58</span></h3>
+<p>Debido a las severas restricciones del entorno textil, se descartan los canales sonoros por ser inaudibles a &gt;99 dB. Las pantallas de visualización deben estructurarse con esquemas de alto contraste (fondo oscuro y texto claro de grandes dimensiones) y complementarse con indicadores luminosos que sean legibles a una distancia normal.</p>
+<h4 id="s4-3-1">4.3.1. Diseño de interfaz:</h4>
+<p>El mockup de alta fidelidad fue presentado y validado con el cliente en dos instancias: la relevación inicial de UX/UI del 12/05/2026 y la validación de mockup del 24/06/2026. Tras esa segunda validación se aplicaron los ajustes descritos en el Registro de Cambios del Mockup y se avanzó a la maquetación en HTML/CSS/JS conectada al backend.</p>
+<p>Flujos Clave de la Interfaz:</p>
+<p>Dashboard de Inicio (Supervisión en Tiempo Real):</p>
+<p>Visualización del estado operativo del telar (Tejiendo, Pausado, Detenido), reflejando también el uso manual de la botonera detectado por el nodo de control.</p>
+<p>Monitoreo de métricas en vivo: contador de pasadas completadas, velocidad actual (pasadas/minuto), tiempo estimado de finalización y porcentaje de avance del patrón.</p>
+<p>Controles de mando directo: botones de Marcha, Pausa y Retroceder, correspondientes a los tres relés del Bloque A. No se implementa un botón de Parada de Emergencia por software: esa función la conserva la botonera física del telar, que sigue operable en todo momento.</p>
+<p>Editor Matricial de Ligamentos:</p>
+<p>Grilla interactiva binaria para la definición del patrón de ligamento (donde “1” representa alzada/lizo arriba y “0” representa bajada/lizo abajo).</p>
+<p>Herramientas de edición rápida: inversión de matriz, repetición de filas/columnas, espejo horizontal/vertical y precarga de estructuras textiles estándar (Tafetán, Sarga, Satén).</p>
+<p>Validación en tiempo real del tamaño de la matriz frente a los límites físicos de los lizos del telar.</p>
+<p>Biblioteca CRUD de Ligamentos (Gestión de Archivos):</p>
+<p>Interfaz de gestión CRUD (Crear, Leer, Actualizar, Eliminar) de diseños de tejido.</p>
+<p>Búsqueda dinámica con filtrado por nombre, fecha de creación, densidad de trama y etiquetas personalizadas.</p>
+<p>Función de importación/exportación de archivos en formato JSON para intercambio entre controladores ESP32 sin necesidad de conexión a Internet.</p>
+<p class="cap">Figura 2. Pantalla de inicio de la aplicación web, con el estado del telar y el acceso a las funciones principales.</p>
+<p class="cap">Figura 3. Editor de dibujo: cada fila representa una pasada y cada columna un elemento seleccionable del telar.</p>
+<p class="cap">Figura 4. Biblioteca de dibujos guardados en la base de datos.</p>
+<p class="cap">Figura 5. Diagrama de conexión eléctrica entre el nodo de control y la botonera del telar.</p>
+<h3 id="s4-4">4.4. Interfaces de software <span class="utn">Buenas Prácticas UTN p.59</span></h3>
+<p>Las interfaces de software del sistema se detallan en la tabla siguiente. El principio de diseño es que todos los clientes —web, aplicación móvil y microcontrolador— consumen la misma API REST, de modo que las reglas de negocio (transacciones, validaciones y bloqueos) se apliquen por igual a todos ellos.</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Interfaz</th><th>Descripción</th><th>Protocolo / formato</th></tr></thead><tbody><tr><td>ISW01</td><td>Backend REST (Node.js + Express)</td><td>La página web, la app y el ESP32 consultan y modifican los datos exclusivamente por la API. Ningún cliente accede a la base de datos directamente.</td><td>JSON sobre HTTPS</td></tr><tr><td>ISW02</td><td>PostgreSQL (Neon)</td><td>Almacena patrones, historial de producción, usuarios y registro de errores. El backend es el único que se conecta.</td><td>Driver pg / SQL</td></tr><tr><td>ISW03</td><td>Navegador del operario</td><td>Ejecuta la aplicación web sin instalación previa. Requiere navegador con soporte de WebAuthn para el ingreso biométrico.</td><td>HTML5 / CSS / JS</td></tr><tr><td>ISW04</td><td>Firmware ESP32 (Arduino)</td><td>Consulta el estado del telar cada 2,5 s y reporta el uso manual de la botonera. Usa la misma API que la web.</td><td>HTTP + ArduinoJson</td></tr><tr><td>ISW05</td><td>Servicio de despliegue (Render)</td><td>Aloja el backend y sirve la aplicación web. En plan gratuito el servicio se suspende tras 15 minutos de inactividad.</td><td>HTTPS</td></tr></tbody></table></div>
+<p class="cap">Tabla 8. Interfaces de software del sistema (ISW).</p>
+<p>La programación del microcontrolador se realiza sobre la herramienta gratuita Arduino IDE 2 en lenguaje C++. Utiliza librerías de código abierto sin costos de adquisición: WiFi.h para la gestión de la red, HTTPClient para las consultas HTTP al backend propio y ArduinoJson para el desempaquetado de las respuestas del servidor. No se emplea ningún SDK ni servicio de Firebase.</p>
+<h3 id="s4-5">4.5. Interfaces de comunicación <span class="utn">Buenas Prácticas UTN p.59</span></h3>
+<p>El microcontrolador ESP32-WROOM-32 se comunica exclusivamente por Wi-Fi con el backend propio (Node.js/Express) mediante peticiones HTTP/REST en JSON: sondea GET /api/telares/1 cada 2,5 s para conocer el estado deseado del telar y reporta fallas con POST /api/errores. El backend, es el único intermediario entre el ESP32, la web y la base de datos PostgreSQL alojada en Neon; no se utiliza MQTT, WebSockets ni ningún broker intermedio en el stack actual.</p>
+<h3 id="s4-6">4.6. Interfaces de hardware (RHW) <span class="utn">Buenas Prácticas UTN p.59</span></h3>
+<p>Las interfaces de hardware describen cada punto de contacto físico entre el nodo de control y el telar. El criterio transversal es que el sistema nunca invade la lógica eléctrica de la máquina: actúa por contacto seco y lee por aislamiento óptico.</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Interfaz</th><th>Sentido</th><th>Descripción</th><th>Pin</th></tr></thead><tbody><tr><td>RHW01</td><td>Relé de Marcha</td><td>Salida</td><td>Contacto seco (COM/NO) en paralelo al botón Marcha de la botonera. Pulso de 300 ms.</td><td>GPIO 25</td></tr><tr><td>RHW02</td><td>Relé de Pausa</td><td>Salida</td><td>Contacto seco en paralelo al botón Pausa. Es el único medio de parada por software.</td><td>GPIO 26</td></tr><tr><td>RHW03</td><td>Relé de Retroceder</td><td>Salida</td><td>Contacto seco en paralelo al botón Retroceder. Módulo de polaridad inversa al de los otros dos.</td><td>GPIO 27</td></tr><tr><td>RHW04</td><td>Sensado de Marcha</td><td>Entrada</td><td>Optoacoplador PC817 con puente rectificador: detecta que un operario apretó el botón a mano.</td><td>GPIO 32</td></tr><tr><td>RHW05</td><td>Sensado de Pausa</td><td>Entrada</td><td>Ídem RHW04, sobre el botón Pausa.</td><td>GPIO 33</td></tr><tr><td>RHW06</td><td>Sensado de Retroceder</td><td>Entrada</td><td>Ídem RHW04, sobre el botón Retroceder. GPIO de solo entrada: la resistencia externa es obligatoria.</td><td>GPIO 34</td></tr><tr><td>RHW07</td><td>Alimentación</td><td>Energía</td><td>Entrada de 220 V con fusible lento de 1 A hacia el módulo HLK-5M05. Independiente del telar.</td><td>—</td></tr><tr><td>RHW08</td><td>Sensor de pasada (Bloque C)</td><td>Entrada</td><td>Sensor inductivo LJ12A3-4-Z/BX sobre un eje del telar: entrega un pulso por pasada, lo que permite contar el avance real de la máquina. Su salida se adapta a 3,3 V mediante optoacoplador.</td><td>a definir</td></tr></tbody></table></div>
+<p class="cap">Tabla 9. Interfaces de hardware del nodo de control (RHW).</p>
+<h3 id="s4-7">4.7. Limitaciones del alcance (LIM)</h3>
+<p>Se registran explícitamente las funciones que quedan fuera del alcance de esta entrega, con el motivo de la exclusión y su continuidad prevista. Cada limitación se corresponde con un punto de la sección de Lineamientos Futuros.</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Limitación</th><th>Situación actual</th><th>Motivo</th><th>Continuidad</th></tr></thead><tbody><tr><td>LIM01</td><td>Control del dibujo por marcos (Nivel 2)</td><td>El telar sigue tomando el patrón de su cinta de papel perforada. El sistema todavía no comanda las bobinas de selección.</td><td>Depende de medir las bobinas instaladas y de localizar el punto de intervención de la señal.</td><td>Lineamiento futuro</td></tr><tr><td>LIM02</td><td>Conteo real de pasadas — RESUELTO EN ESTA ETAPA</td><td>El sensor inductivo del Bloque C se incorpora al alcance de esta entrega.</td><td>Su punto de montaje se determina con el telar en marcha; hasta entonces el avance es una estimación por tiempo.</td><td>Incluido en esta etapa</td></tr><tr><td>LIM03</td><td>Botones Avanzar e Impulso</td><td>Quedan fuera del sistema: no se accionan ni se sensan.</td><td>Se encuentran desconectados en la máquina, según relevamiento.</td><td>Excluido</td></tr><tr><td>LIM04</td><td>Aplicación Android</td><td>Se entrega solo la base de arquitectura, sin funcionalidad.</td><td>El producto de esta etapa es la aplicación web, accesible desde el navegador del celular.</td><td>Lineamiento futuro</td></tr><tr><td>LIM05</td><td>Placa de circuito impreso a medida</td><td>La entrega se realiza sobre placa universal perforada soldada.</td><td>El diseño y fabricación de un PCB propio solo se justifica ante una producción en serie.</td><td>Lineamiento futuro</td></tr><tr><td>LIM06</td><td>Enlace de Internet redundante</td><td>Se utiliza el servicio existente de la planta, sin respaldo por red móvil.</td><td>El sistema es fail-safe: ante un corte, el telar sigue operable a mano y no se detiene la producción.</td><td>Lineamiento futuro</td></tr><tr><td>LIM07</td><td>Operación de múltiples telares</td><td>El nodo controla un único telar, identificado en su configuración.</td><td>La arquitectura ya contempla varios telares en la base de datos; falta el hardware de cada nodo adicional.</td><td>Lineamiento futuro</td></tr></tbody></table></div>
+<p class="cap">Tabla 10. Limitaciones del alcance de la entrega (LIM).</p>
+</section>
+<section id="s5">
+<h2><span class="n">5</span>Hardware</h2>
+<p>Esta sección consolida todas las especificaciones técnicas de hardware del proyecto: las limitaciones eléctricas del ESP32, el flujo de acondicionamiento de señal entre el telar (24V) y el microcontrolador (3,3V), las protecciones industriales, el gabinete físico y la lista de componentes por bloques de compra.</p>
+<h3 id="s5-1">5.1. Limitaciones y Consideraciones Eléctricas</h3>
+<p>El ESP32 opera estrictamente a 3,3V, mientras que las señales nativas del telar trabajan bajo el estándar de 24V, exigiendo etapas intermedias de acondicionamiento y aislamiento. El chip genera calor interno por el uso constante del Wi-Fi y debido a eso, debe colocarse en un gabinete adecuadamente ventilado y separado de las fuentes de mayor ruido electromagnético (EMI) de los motores, para evitar reseteos provocados por picos inductivos. Las pistas de potencia de la PCB deben tener un grosor mínimo de 0,8 mm a 1 mm para mitigar caídas de tensión.</p>
+<h3 id="s5-2">5.2. Acoplamiento Electrónico y Cableado</h3>
+<p>Las señales de control de 24V nativas del telar interactuarán con la PCB del ESP32 de forma aislada mediante optoacopladores rápidos (PC817) para independizar las masas de los motores y proteger el circuito digital. Las interconexiones externas utilizarán cables mallados multifilares (debido a que el cable unifilar rígido se corta por fatiga ante la vibración extrema del entorno textil), conectando la malla de protección a GND únicamente en el extremo del tablero del ESP32 para bloquear bucles de masa. El nodo emplea borneras de conexión atornillables instaladas directamente en la placa para la alimentación y el direccionamiento seguro de las señales lógicas hacia las etapas de potencia, manteniendo todo el cableado protegido dentro del gabinete principal.</p>
+<h3 id="s5-3">5.3. Flujo Secuencial del Acondicionamiento de Hardware</h3>
+<p>Paso 1 (Entorno de Maquinaria 24V AC): Líneas de control de la botonera del telar, confirmadas por medición directa en 24V AC (no DC). Los relés las intervienen mediante contacto seco (COM/NO), sin acoplarse eléctricamente a ellas.</p>
+<p>Paso 2 (Alimentación y Protección de Entrada): Fusible lento de 1A en la entrada de 220V AC, según recomendación del datasheet del módulo de alimentación. La alimentación es independiente de la línea de 24V del telar, por lo que la protección se concentra en la entrada de red.</p>
+<p>Paso 3 (aislamiento de señal): optoacopladores PC817 con puente rectificador (DB107) y resistencia limitadora de 2,2 kΩ 1 W, empleados para sensar los mismos tres botones que los relés accionan —Marcha, Pausa y Retroceder—. De este modo el nodo detecta cuándo un operario los usa a mano en la máquina, independizando las masas y aislando los 24 V AC de la botonera respecto de los pines del microcontrolador. Para evitar que el sistema interprete sus propios pulsos como acciones manuales, el firmware descarta las detecciones que ocurren dentro de una ventana breve posterior a cada accionamiento de relé.</p>
+<p>Paso 4 (Alimentación Regulada): Módulo de fuente conmutada HLK-5M05 (220V AC a 5V DC, 1A), independiente del telar y montado dentro del gabinete IP65.</p>
+<p>Paso 5 (Buses de Control): Buses de comunicación y señales lógicas conectadas directamente a los Pines GPIO del microcontrolador.</p>
+<p>Paso 6 (Cerebro del Nodo): Microcontrolador ESP32-WROOM-32 (Soldado directo a pistas, en tablero separado IP65), con código C++ protegido por temporizador de hardware de 15 s, encargado de sondear por Wi-Fi/HTTP el estado del telar en el backend cada 2,5 s y accionar los relés de Marcha/Pausa.</p>
+<h3 id="s5-4">5.4. Protección Industrial e Inmunidad Electromagnética (EMI)</h3>
+<p>Para operar en un entorno industrial con alta presencia de ruido inductivo generado por los motores del telar, la placa de control incorpora dos niveles de protección eléctrica:</p>
+<p>Aislamiento Galvánico por Optoacopladores (PC817):</p>
+<p>Separa físicamente los 24V de la etapa de potencia/sensores de los 3.3 V del microcontrolador ESP32.</p>
+<p>Soporta tensiones de aislamiento de hasta 5000VRMS, evitando que transitorios o cortocircuitos en el telar dañen el procesamiento central.</p>
+<p>Inmunidad a Interferencia Electromagnética (EMI):</p>
+<p>Plano de masa continuo en la PCB con separación estricta entre la zona digital 3.3 V y la de potencia 24V.</p>
+<p>Uso de filtros LC pasivos en las líneas de alimentación del ESP32 y conectores de malla a tierra de un solo punto para eliminar bucles de masa (ground loops).</p>
+<h3 id="s5-5">5.5. Gabinete y Protección Física</h3>
+<p>Para garantizar la durabilidad del hardware de control en el ambiente textil, se diseñó un gabinete estanco con las siguientes características constructivas:. La disposición interna definitiva de los componentes dentro del gabinete se documenta mediante fotografías del armado real, una vez montada la placa sobre los separadores.</p>
+<p>Material del Gabinete: Polímero ABS térmicamente estable combinado con tapa de Policarbonato transparente de alta resistencia al impacto (Grado de protección mecánica IK08).</p>
+<p>Grado de Protección: IP65 (Totalmente protegido contra la entrada de polvo y pelusa textil; protegido contra chorros de agua a baja presión en cualquier dirección).</p>
+<p>Prensacables / Pasacables: Entrada de cables blindada mediante 4 prensacables de Nylon PG9 y PG11 con sellado de junta tórica de neopreno, garantizando la hermeticidad de la acometida eléctrica y de sensores.</p>
+<h3 id="s5-6">5.6. Lista de Componentes por Bloques (BOM)</h3>
+<p>Detalle técnico de los componentes agrupados según el orden de compra recomendado (Bloques A a D). Los montos de cada bloque, en pesos argentinos.</p>
+<div class="tw"><table><thead><tr><th>Bloque</th><th>Componente</th><th>Función</th><th>Cant.</th></tr></thead><tbody><tr><td>A — Nivel 1</td><td>ESP32 (NodeMCU / WROOM-32)</td><td>Cerebro del nodo: consulta el estado en el backend y acciona los relés.</td><td>1</td></tr><tr><td>A — Nivel 1</td><td>Módulo relé 3 canales (5 V, optoacoplado)</td><td>En paralelo a los botones Marcha, Pausa y Retroceder de la botonera. Contacto seco: no invade la lógica del telar.</td><td>1</td></tr><tr><td>A — Nivel 1</td><td>Módulo fuente HLK-5M05 (220 V → 5 V, 1 A)</td><td>Alimenta ESP32, relés y sensado. Fuente propia, independiente del telar.</td><td>1</td></tr><tr><td>A — Nivel 1</td><td>Fusible lento 1 A + portafusible</td><td>Protege la entrada de 220 V del módulo de fuente (valor indicado por su datasheet).</td><td>1</td></tr><tr><td>A — Nivel 1</td><td>Optoacoplador PC817</td><td>Sensa el uso manual de cada botón, aislando sus 24 V AC del microcontrolador.</td><td>3</td></tr><tr><td>A — Nivel 1</td><td>Puente rectificador DB107 / DB157 (1 A)</td><td>Convierte el 24 V AC del botón en pulsos de continua, antes del optoacoplador.</td><td>3</td></tr><tr><td>A — Nivel 1</td><td>Resistencia 2,2 kΩ 1 W</td><td>Limita la corriente hacia el LED del optoacoplador.</td><td>3</td></tr><tr><td>A — Nivel 1</td><td>Resistencia 10 kΩ</td><td>Polarización: 3 para los relés (a 3,3 V) y 3 para el sensado. Evitan el accionamiento fantasma al encender.</td><td>6</td></tr><tr><td>A — Nivel 1</td><td>Capacitor cerámico 100 nF</td><td>Desacople junto al ESP32 y al módulo de relés: filtra el ruido de conmutación.</td><td>3</td></tr><tr><td>A — Nivel 1</td><td>Cable multifilar 6 conductores con malla</td><td>Lleva la señal de los 3 botones al gabinete: el mismo par sirve para el relé y para el sensado.</td><td>3 m</td></tr><tr><td>A — Nivel 1</td><td>Gabinete IP65, prensacables, borneras y placa perforada</td><td>Montaje estanco del nodo, con los componentes soldados y fijados con separadores.</td><td>1 juego</td></tr><tr><td>B — Medición</td><td>Instrumental de medición (prestado)</td><td>Verificación de tensiones y continuidad en la máquina. No representa costo para el proyecto.</td><td>—</td></tr><tr><td>C — Sensor de pasada</td><td>Sensor inductivo LJ12A3-4-Z/BX (NPN, NO)</td><td>Cuenta las pasadas reales del telar, entregando un pulso por cada giro completo del eje. Incluido en el alcance de esta etapa.</td><td>1</td></tr><tr><td>C — Sensor de pasada</td><td>Optoacoplador PC817 + resistencias</td><td>Adapta la salida de 12 V del sensor al nivel de 3,3 V del ESP32.</td><td>1 juego</td></tr><tr><td>D — Nivel 2</td><td>Bobinas de selección del dobby (ya instaladas)</td><td>El telar cuenta con 3 bobinas en funcionamiento. El Nivel 2 prevé intervenir su señal de mando en lugar de reemplazarlas.</td><td>3</td></tr><tr><td>D — Nivel 2</td><td>Registro de desplazamiento 74HC595</td><td>Maneja las salidas de selección con solo 3 pines del ESP32.</td><td>1</td></tr><tr><td>D — Nivel 2</td><td>MOSFET IRLZ44N + diodo 1N4007</td><td>Conmutan la corriente de cada bobina. El diodo flyback es obligatorio: sin él, el pico inductivo destruye el MOSFET.</td><td>a definir</td></tr><tr><td>D — Nivel 2</td><td>Fuente de continua para las bobinas</td><td>Tensión y corriente a definir tras medir las bobinas instaladas.</td><td>1</td></tr></tbody></table></div>
+<p class="cap">Tabla 11. Lista de componentes por bloque de compra (BOM).</p>
+<p>El Bloque B (medición del telar: balanza, hilo, regla, cronómetro) no forma parte del hardware final: es instrumental, mayormente gratuito, y se usa una sola vez para dimensionar los solenoides del Bloque C y D antes de comprarlos.</p>
+</section>
+<section id="s6">
+<h2><span class="n">6</span>Oferta de Gestión</h2>
+<h3 id="s6-1">6.1. GANTT</h3>
+<figure><img src="gantt.png" alt="Figura de la seccion 6.1">
+<p>El cronograma completo del proyecto se organiza en ocho etapas de trabajo, desde la definición inicial hasta la presentación final, con un total de 162 tareas distribuidas entre los integrantes del equipo. La figura siguiente resume las etapas, su cantidad de tareas y sus fechas de inicio y cierre.</p>
+<figcaption>Figura 6. Cronograma del proyecto organizado en 8 etapas, del 16/03/2026 al 14/11/2026.</figcaption></figure>
+<p>El cronograma real del proyecto (Gantt_2026 - Automatizacion de Telar Industrial.xlsx) comenzó el 16/03/2026 y proyecta su cierre el 14/11/2026 (422 días corridos), organizado en 8 etapas de trabajo. Estado de avance a la fecha de esta versión de la documentación: El cronograma completo, con las 162 tareas, sus responsables y sus dependencias, se mantiene en la planilla del equipo: https://docs.google.com/spreadsheets/d/gantt-control-trama (Gantt_2026 - Automatizacion de Telar Industrial.xlsx).</p>
+<p>Etapa 01, Definición de proyecto: análisis de mercado, dos rondas de entrevistas con el cliente, especificación de requerimientos y elección del proyecto final. Etapa 02, Mockup: investigación de referentes, Design System, wireframes y alta fidelidad en Figma, validados con el cliente el 24/06/2026. Etapa 03, Armado de HTML/CSS + Servidor + BD: maquetación conectada al backend en Node.js/Express, base de datos PostgreSQL desplegada en Neon.</p>
+<p>El seguimiento del proyecto frente al calendario institucional se consolida en cinco hitos académicos, alineados a las 8 etapas reales del Gantt:</p>
+<p>Levantamiento de información y diagnóstico operativo en la fábrica textil. Dos rondas de entrevistas con el cliente, armado del Árbol de Problemas y Soluciones, definición del alcance funcional del retrofit y confección del Product Backlog inicial.</p>
+<p>Diseño de la arquitectura de software y validación del mockup de alta fidelidad en Figma (Design System real: paleta púrpura/crema, tipografía Century Gothic/Questrial) con el cliente. Maquetación en HTML/CSS/JS, backend en Node.js/Express y modelado de la base de datos relacional en PostgreSQL (Neon).</p>
+<p>Desarrollo del firmware del nodo ESP32 en C++: Nivel 1 (relés de Marcha/Pausa, ya validado en el telar real) y Nivel 2 (control de marcos por solenoides, Revisión 3 — diseño cerrado y simulado, a la espera de la medición y la prueba de mesa). Alta del login biométrico WebAuthn y protecciones eléctricas del BOM.</p>
+<p>Integración final de hardware y pruebas de campo en fábrica con los dos niveles de control operando en conjunto, validación de la sincronización de pasada y de la respuesta en tiempo real, e integración total con la base de datos de fábrica.</p>
+<p>Consolidación de la memoria técnica final, confección de manuales de usuario y mantenimiento, cierre del presupuesto y listado de componentes (BOM), y defensa final del proyecto técnico.</p>
+<h3 id="s6-2">6.2. Product Backlog</h3>
+<p>Backlog global del proyecto, organizado por épicas (grandes bloques funcionales) y priorizado desde lo más visual y básico hasta el control mecánico más complejo. Refleja la planificación base del equipo; el estado real de avance de cada ítem se sigue en el Gantt (Sección 6.1) y en la Bitácora de Proyecto.</p>
+<p>PB-1.1 Layout Principal (HTML/CSS): Pantalla de inicio clara y estructurada que divide el espacio entre el área de diseño visual y los controles de la máquina, para operar de forma intuitiva.</p>
+<p>PB-1.2 Explorador de Matrices: Listado lateral con las matrices ya guardados en la base de datos, para seleccionar uno rápidamente y mandarlo a tejer.</p>
+<p>PB-1.3 Limpieza de Interfaz: Botones grandes y legibles en pantallas táctiles o monitores industriales, sin necesidad de navegar por menús ocultos.</p>
+<p>PB-2.1 Grilla Interactiva Base: Lienzo HTML cuadriculado donde un clic alterna el estado de la celda (1 = levantado, 0 = abajo), para dibujar el ligamento.</p>
+<p>PB-2.2 Ajuste de Dimensiones: Inputs numéricos para definir dinámicamente cuántos hilos de urdimbre y pasadas de trama tendrá la matriz antes de empezar a dibujar.</p>
+<p>PB-2.3 Empaquetador de Datos (JS): El dibujo visual de la grilla se convierte automáticamente en un arreglo bidimensional (JSON) en segundo plano, listo para viajar al servidor.</p>
+<p>PB-2.4 Herramientas de Agilidad: Botones de acceso rápido para “Limpiar grilla”, “Invertir colores” o “Completar fila”, para no tener que hacer cientos de clics manuales en matrices grandes.</p>
+<p>PB-3.1 Guardado de Nuevo Patrón (Create): Escribir un nombre y presionar “Guardar” para que la matriz actual se inserte en PostgreSQL sin recargar la página.</p>
+<p>PB-3.2 Lectura de Matrices (Read): Endpoint que trae el historial de matrices guardados y los inyecta en el Explorador de Matrices de la UI.</p>
+<p>PB-3.3 Edición y Sobrescritura (Update): Abrir un patrón existente, modificarlo y guardar los cambios sobre el mismo registro.</p>
+<p>PB-3.4 Eliminación Segura (Delete): Borrar matrices que ya no sirven para mantener limpia la biblioteca.</p>
+<p>PB-4.1 Consola de Ejecución: Botones de &quot;Play&quot; (Marcha), &quot;Pausa&quot; y &quot;Retroceder&quot; que le indican al ESP32 cuándo arrancar, detener o retroceder el telar.</p>
+<p>PB-4.2 Feedback Visual en Vivo: Mientras la máquina teje, la interfaz web resalta en color la fila exacta de la matriz que el telar está procesando.</p>
+<p>PB-4.3 Función “Volver Atrás”: Ante un error físico en el hilo, poder retroceder un paso la posición registrada y que el resaltado visual en la web retroceda en conjunto, sincronizando el estado del sistema con lo que el operario corrige a mano. Nota: este ítem, planteado originalmente como reversión mecánica de motores, se resolvió finalmente a nivel de posición/base de datos; su implementación final se documenta en el RF08.</p>
+<p>PB-4.4 Reanudación Segura: Tras usar “Volver Atrás” y acomodar el hilo manualmente, poder presionar “Play” y que el sistema retome el flujo exactamente desde ese punto restablecido.</p>
+<p>Para la etapa inicial del proyecto (Etapa 03 del Gantt), el trabajo se enfocó en construir las bases web y la conexión de la base de datos, asegurando que los datos fluyeran desde la pantalla hasta PostgreSQL:</p>
+<div class="tw"><table><thead><tr><th>ID</th><th>Título de la tarea</th><th>Área</th><th>Criterios de aceptación</th><th>Estado</th></tr></thead><tbody><tr><td>SB-01</td><td>Grilla interactiva del editor</td><td>Frontend</td><td>El operario dibuja tocando las celdas. Cada fila es una pasada y cada columna un elemento seleccionable. Admite de 2 a 32 filas y columnas.</td><td>Terminado</td></tr><tr><td>SB-02</td><td>Esquema de base de datos</td><td>Backend</td><td>Tablas patrones, telares, historial_produccion, usuarios y errores_log en PostgreSQL, con las matrices guardadas como JSONB.</td><td>Terminado</td></tr><tr><td>SB-03</td><td>API REST de patrones</td><td>Backend</td><td>Endpoints de alta, consulta, modificación y baja. La web y el ESP32 consumen la misma API.</td><td>Terminado</td></tr><tr><td>SB-04</td><td>Persistencia del dibujo</td><td>Full-stack</td><td>Al guardar, el dibujo queda en la base y aparece en la Biblioteca. Al abrirlo, la grilla se reconstruye idéntica.</td><td>Terminado</td></tr><tr><td>SB-05</td><td>Posición del tejido en curso</td><td>Backend</td><td>historial_produccion registra fila y pasada actuales, permitiendo retomar y retroceder sin reconstruir el estado.</td><td>Terminado</td></tr><tr><td>SB-06</td><td>Pausa y reanudación</td><td>Full-stack</td><td>Pausar conserva posición y patrón; al reanudar, el tejido retoma donde quedó en lugar de empezar de cero.</td><td>Terminado</td></tr><tr><td>SB-07</td><td>Retroceso de una pasada</td><td>Full-stack</td><td>Pausa el tejido, mueve la posición una fila atrás, lo refleja en pantalla y pulsa el relé del telar.</td><td>Terminado</td></tr><tr><td>SB-08</td><td>Sensado del uso manual</td><td>Firmware</td><td>Si un operario usa la botonera, el nodo lo detecta por optoacoplador y la web refleja el estado real de la máquina.</td><td>En curso</td></tr></tbody></table></div>
+<p class="cap">Tabla 12. Sprint Backlog: cimientos de la grilla y la base de datos.</p>
+<p>El Backlog se estructuró para fluir desde la pantalla hacia los engranajes: no tenía sentido construir la Épica 4 (control de máquina) sin que el ESP32 tuviera un patrón que leer, ni guardar un patrón sin que la grilla interactiva (Épica 2) funcionara primero. Por eso el Sprint inicial atacó las bases: una página donde dibujar, un servidor que reciba el dibujo y una base de datos que lo archive, antes de avanzar sobre la sincronización con el telar físico.</p>
+<h3 id="s6-3">6.3. Infraestructura administrativa <span class="utn">Buenas Prácticas UTN p.62</span></h3>
+<figure><img src="organigrama.png" alt="Figura de la seccion 6.3">
+<p>La coordinación operativa interna del equipo técnico del Instituto Leonardo Murialdo se asienta en dos herramientas base de uso gratuito:</p>
+<figcaption>Figura 7. Infraestructura administrativa del equipo, según el modelo del manual UTN (p. 62).</figcaption></figure>
+<p>GitHub: Repositorio centralizado para el control de versiones del firmware C++ y los archivos de diseño de la placa KiCad, donde cada miembro debe estar registrado como colaborador activo e incluir la descripción técnica estructurada en el archivos informativos.</p>
+<p>Plantilla Obligatoria de Minutas: Documentación formal de cada avance del período, la cual debe registrar indexada de manera estricta los siguientes campos en cada reunión: Fecha y duración, Participantes, Objetivo de la reunión, Temas tratados, Decisiones y acuerdos alcanzados, y Próximos pasos asignados con responsables técnicos. Se exige registrar cronológicamente cada ajuste aplicado sobre la lógica de captura de señales o el diseño del gabinete tras las validaciones en fábrica con los operarios, garantizando la trazabilidad de la iteración técnica sobre el retrofit industrial.</p>
+</section>
+<section id="s7">
+<h2><span class="n">7</span>Oferta Económica</h2>
+<h3 id="s7-1">7.1. Proveedores de Internet</h3>
+<p>El sistema depende de la conexión a Internet de la planta para que el nodo de control se comunique con el backend. Actualmente la fábrica cuenta con un servicio de Telecentro de gama básica, suficiente en ancho de banda para el tráfico del proyecto —el ESP32 consulta el estado cada 2,5 segundos, con paquetes de pocos cientos de bytes— pero sin garantía de disponibilidad ni servicio técnico prioritario.
+
+Se evaluaron tres alternativas para el enlace definitivo. La primera es mantener el servicio actual, sin costo adicional, aceptando que ante un corte el telar sigue operable a mano desde su botonera, ya que el sistema está diseñado como fail-safe: si no hay red, el nodo no acciona nada. La segunda es contratar un plan empresarial con IP fija y acuerdo de nivel de servicio, lo que agrega costo mensual pero reduce el tiempo de reposición ante una falla. La tercera es sumar un enlace de respaldo por red móvil (un módem 4G con SIM de datos), que entra automáticamente si cae el enlace principal.
+
+Para la etapa actual del proyecto se resolvió continuar con el servicio existente, por dos razones: el sistema no es crítico para la seguridad —su caída no detiene la producción, solo obliga a operar el telar de forma manual— y el costo de un enlace redundante no se justifica mientras haya un solo telar automatizado. La incorporación de un respaldo por red móvil queda registrada como lineamiento futuro, a evaluar cuando se sumen más máquinas al sistema.</p>
+<h3 id="s7-2">7.2. Proveedores de insumos electrónicos / computadoras</h3>
+<p>Fabricación de placas de circuito impreso: para el nodo piloto del Nivel 1, la Lista de Componentes prevé el armado del circuito sobre placa universal perforada, con los componentes soldados y fijados al gabinete mediante separadores. El armado sobre protoboard se utiliza únicamente durante las pruebas de banco: la entrega final se realiza sobre placa soldada, según lo establecido en los Lineamientos del proyecto. La migración a un PCB diseñado y fabricado a medida queda registrada como lineamiento futuro, para el caso de una eventual producción en serie.</p>
+<p>Distribución de Componentes Integrados: Firmas globales y componentes listados en la BOM: Espressif Systems (módulo MCU), Hi-Link (módulo de fuente) y Sharp/Lite-On (optoacopladores).</p>
+<p>Suministros locales de ferretería industrial para la adquisición de resina epóxica de encapsulado para potting, aerosoles de barniz de tropicalizado dieléctrico (Conformal Coating), mangueras prensacables plásticos estancos de rosca tipo glándula PG, y rollos de cable mallado multifilar de cobre de 4 hilos internos para las líneas de control:</p>
+<div class="tw"><table><thead><tr><th>CATEGORÍA</th><th>COMPONENTE/INSUMO</th><th>MARCA/MODELO COMERCIAL</th><th>ESPECIFICACIÓN TÉCNICA</th></tr></thead><tbody><tr><td>Protección PCB</td><td>Barniz Dieléctrico</td><td>Loxeal/Chemtronics PLACER 30-21</td><td>Recubrimiento conformador (Conformal Coating) aislante de humedad y pelusa.</td></tr><tr><td>Conectividad</td><td>Borneras de Conexión</td><td>Phoenix Contact/Wago Serie 236</td><td>Borneras de resorte para riel DIN y PCB, resistentes a vibraciones mecánicas.</td></tr><tr><td>Gabinete y Red</td><td>Prensacables Industriales</td><td>Steck/BAW Norma PG (PG9/PG11)</td><td>Grado IP65 en Poliamida 6.6 con junta de estanqueidad.</td></tr><tr><td>Aislamiento</td><td>Optoacopladores</td><td>Sharp/Lite-On PC817</td><td>Aislamiento galvánico óptico de $5000\text{ V}_{\text{RMS}}$ entre 24V y 3.3V.</td></tr><tr><td>Procesamiento</td><td>Microcontrolador</td><td>Espressif ESP32-WROOM-32U</td><td>Dual-core 240 MHz, conectividad Wi-Fi/BLE, memoria Flash SPI de 4MB.</td></tr></tbody></table></div>
+<p class="cap">Tabla 13. Especificaciones técnicas de los componentes principales.</p>
+</section>
+<section id="s8">
+<h2><span class="n">8</span>Estimación Económica</h2>
+<figure><img src="estimacion.png" alt="Figura de la seccion 8">
+<p>El presupuesto se organiza en cuatro bloques de compra y confirma que toda la arquitectura de software seleccionada es de uso libre, con costo de licenciamiento mensual de $0. Los valores corresponden a la revisión del 28/08/2026 y se mantienen actualizados en la planilla del equipo (Lista_de_componentes_Control_Trama.xlsx y Estimacion_Costos_Ganancia_Contrato_v4.docx).</p>
+<figcaption>Figura 8. Estructura de costos del proyecto y esquema del servicio de mantenimiento.</figcaption></figure>
+<p>Los componentes efectivamente adquiridos para el Bloque A suman $83.316, a los que se agregan $10.150 del Bloque C y $5.650 del Bloque D ya comprados, totalizando $99.116 en materiales. El Bloque B no representa costo: es medición y ensayo con instrumental prestado. Sumando los gastos operativos de $109.675 y el valor del trabajo del equipo, valuado en $24.527.996 según las tarifas del proyecto, el costo total asciende a $24.736.787. Aplicando el margen del 25 % previsto, el presupuesto final es de $30.920.984, con una ganancia proyectada de $6.184.197.</p>
+<div class="tw"><table><thead><tr><th>BLOQUE DE COMPRA</th><th>CONTENIDO</th><th>CUÁNDO COMPRARLO</th><th>¿GRATIS/PRESTADO?</th><th>SUBTOTAL</th></tr></thead><tbody><tr><td>Bloque A — Nivel 1 (control y sensado)</td><td>ESP32, módulos de relé (3 canales en total), fuente HLK-5M05 220V→5V, fusible lento 1A, 3 optoacopladores PC817 con sus puentes rectificadores y resistencias limitadoras, 6 resistencias de polarización, capacitores de desacople, gabinete IP65, prensacables, borneras, cable mallado de 6 conductores y placa universal.</td><td>Etapa 4</td><td>No</td><td>$83.316</td></tr><tr><td>Bloque B — Medición del telar</td><td>Balanza de mano o dinamómetro prestado, hilo/tanza, regla, pesas/botellas de agua, cronómetro del celular.</td><td>Primer paso del Nivel 2</td><td>Sí — es medición/test con instrumental prestado</td><td>$0</td></tr><tr><td>Bloque C — Sensor de pasada</td><td>Sensor inductivo LJ12A3-4-Z/BX (ya adquirido), optoacoplador y resistencias de adaptación de nivel, más el soporte de montaje a fabricar.</td><td>Incluido en esta etapa</td><td>No</td><td>$10.150</td></tr><tr><td>Bloque D — Nivel 2 (selección del dibujo)</td><td>Intervención de las 3 bobinas de selección ya instaladas en el telar: MOSFET IRLZ44N y diodos flyback (uno por bobina, más repuestos), registro 74HC595, resistencias, capacitor de filtrado y fuente de continua según medición.</td><td>Recién después de medir (tarea 5.10)</td><td>No</td><td>$5.650 (a completar con la fuente, según medición)</td></tr><tr><td>TOTAL DEL PROYECTO</td><td>Bloques A, C y D (el Bloque B no genera costo).</td><td>—</td><td>—</td><td>$99.116</td></tr></tbody></table></div>
+<p class="cap">Tabla 14. Bloques de compra: contenido, oportunidad y subtotal.</p>
+<p>La estructura de costos muestra que el 99,2 % corresponde al trabajo del equipo y solo el 0,8 % ($208.791) a dinero efectivamente desembolsado. Orden de compra recomendado: (1) Bloque A, ya adquirido casi en su totalidad, para completar la Etapa 4; (2) Bloque B, con instrumental prestado; (3) medición del telar, incluyendo las bobinas de selección instaladas; y (4) recién entonces los Bloques C y D, cuyos componentes dependen de esa medición. La planilla completa, con el detalle por ítem y los precios de referencia, se mantiene en: https://docs.google.com/spreadsheets/d/estimacion-control-trama</p>
+<p>Costos de operación mensuales recurrentes: $0. El plan gratuito de Neon cubre las necesidades de un piloto de un solo telar sin costo de licenciamiento, y el despliegue del backend se realiza también sobre un plan sin cargo. A esto se suma el servicio de mantenimiento posterior a la garantía, detallado en la Estimación de Costos, que prevé un abono mensual de $131.750 y visitas de mantenimiento preventivo de $244.125 cada una.</p>
+</section>
+<section id="s9">
+<h2><span class="n">9</span>Lineamientos Futuros</h2>
+<p>Una vez validado el piloto de un telar (Nivel 1 y Nivel 2), el sistema queda en condiciones de crecer en dos direcciones: hacia más máquinas dentro de la misma fábrica, y hacía más funciones de valor para la gestión del negocio. El esquema de base de datos ya está preparado para esto (la tabla telares admite múltiples registros desde el día uno), por lo que estas líneas no requieren rediseñar la arquitectura, sino extenderla.</p>
+<h3 id="s9-1">9.1. Escalamiento a Toda la Flota de Telares</h3>
+<p>Réplica del nodo por máquina: instalar un ESP32 por telar (mismo diseño del Bloque A/D) y darlo de alta como una nueva fila en la tabla telares, sin tocar el backend ni la base de datos.</p>
+<p>Vista de fábrica consolidada: un panel único que muestre el estado de las 6 máquinas de la fábrica en simultáneo (tejiendo, pausada, en error), para que el dueño no tenga que recorrer la fábrica para saber qué telar necesita atención.</p>
+<h3 id="s9-2">9.2. Analítica y Mantenimiento Predictivo</h3>
+<p>Reportes de producción: usar el historial_produccion ya registrado (pasadas, tiempos, paradas) para generar reportes semanales o mensuales de rendimiento por telar y por operario, con exportación a PDF o Excel.</p>
+<p>Alertas de mantenimiento: cruzar la frecuencia de errores_log por telar con las horas de uso para sugerir mantenimientos preventivos antes de que ocurra una falla mayor, aprovechando datos que el sistema ya está guardando.</p>
+<h3 id="s9-3">9.3. Nivel 3: Selección Jacquard Digital</h3>
+<p>Evolución de largo plazo, condicionada al éxito y la amortización del Nivel 2: reemplazar la cinta de papel perforada por un sistema de selección electrónico de marcos, eliminando por completo la dependencia de un insumo físico consumible. Es una inversión mayor que excede el alcance de este proyecto académico, pero la arquitectura de datos (matriz_pasadas por dibujo) ya es compatible con ese modelo de control, así que no implica descartar nada de lo construido.</p>
+<h3 id="s9-4">9.4. Oportunidades de Negocio</h3>
+<p>Soporte y mantenimiento del sistema: una vez estabilizado el piloto, ofrecer un abono mensual de soporte técnico y actualizaciones al cliente, en línea con el modelo de costo $0 de licenciamiento ya adoptado (Neon, Node.js, PostgreSQL).</p>
+<p>Réplica en otras fábricas textiles: el desarrollo no depende de las particularidades de un telar en especial más que en el conexionado eléctrico de Marcha/Pausa, por lo que el mismo producto podría ofrecerse a otras fábricas con telares planos mecánicos similares, adaptando únicamente el Bloque A/D a cada máquina.</p>
+</section>
+<section id="s10">
+<h2><span class="n">10</span>Contrato</h2>
+<h3 id="s10-1">10.1. Objetivo del proyecto</h3>
+<p>Establecer los términos de mutuo acuerdo para el diseño, fabricación e instalación de un sistema IoT de control electrónico y retrofit activo en tiempo real sobre la infraestructura de telares planos mecánicos del cliente, con la finalidad de dotar a la fábrica de trazabilidad de turno y habilitar mantenimiento predictivo.</p>
+<h3 id="s10-2">10.2. Alcance del proyecto</h3>
+<p>El Desarrollador se compromete a hacer entrega de: un nodo electrónico ESP32 con la etapa de potencia y protecciones montadas y soldadas sobre placa universal perforada, fijada al gabinete con separadores (no se entrega sobre protoboard) con borneras, el firmware C++ cargado y testeado en el microcontrolador, la base de datos PostgreSQL (Neon) enlazada en tiempo real, el backend Node.js/Express y la interfaz web (con login biométrico WebAuthn) operativos durante una fase piloto. Quedan explícitamente fuera del acuerdo modificaciones a la estructura de engranajes, reparación de motores, provisión de repuestos mecánicos o la alteración del Jacquard de tarjetas perforadas.</p>
+<h3 id="s10-3">10.3. Plazos</h3>
+<p>El tiempo de ejecución para el Nivel 1 (MVP de arranque y pausa remotos, ya validado con relés en el telar real) corresponde a la Etapa 04 del Gantt, del 06/07/2026 al 16/09/2026. El despliegue del Nivel 2 (control de marcos por solenoides) corresponde a la Etapa 05, del 17/07/2026 al 15/10/2026, con la medición del telar como primer paso obligatorio antes de comprar los solenoides. Fechas de hitos específicos según el diagrama de burndown: Gantt_2026 - Automatización de Telar Industrial.xlsx (inicio de proyecto 16/03/2026, cierre previsto 14/11/2026).</p>
+<h3 id="s10-4">10.4. Responsabilidades</h3>
+<p>Del Equipo de Desarrollo: Asume la responsabilidad integral del proyecto: la planificación y el cumplimiento del cronograma, la calidad del software (frontend, backend y base de datos), la correcta integración del hardware con el telar, y la documentación del avance en la Bitácora de Proyecto. El equipo distribuye estas responsabilidades entre sus roles (Sección 2.3), pero responde de forma conjunta ante la cátedra y el cliente por el resultado final, no solo por el diseño electrónico de un componente en particular.</p>
+<p>Del Cliente: Se compromete a garantizar el acceso físico seguro del equipo a las instalaciones de la fábrica, facilitar los datos pendientes de la tarjeta de perfil operativo, coordinar las ventanas de tiempo con mantenimiento para la conexión del nodo al tablero eléctrico del telar sin penalizar los objetivos de producción diaria y proveer las acometidas eléctricas necesarias.</p>
+<h3 id="s10-5">10.5. Criterios de aceptación</h3>
+<p>El cliente dará por aceptado y completado el desarrollo si el nodo IoT demuestra operar de forma continua durante la prueba de 48 horas en la fábrica, logrando clasificar e informar una parada no planificada de la máquina en un tiempo menor a 30 segundos en la página web.</p>
+<h3 id="s10-6">10.6. Condiciones de modificación</h3>
+<p>Cualquier solicitud de cambio sobre las funciones acordadas en los requisitos del MVP deberá ser asentada formalmente en la bitácora de documentación y requerirá una evaluación de viabilidad económica previa por parte de la cátedra antes de ser implementada.</p>
+<h3 id="faq">Preguntas frecuentes</h3>
+<p>Las dudas que más aparecieron durante el desarrollo, con la respuesta que quedó documentada.</p>
+<details><summary>¿Qué pasa si se corta Internet mientras el telar está tejiendo?</summary><div class="bd">Nada peligroso. El firmware está diseñado como <em>fail-safe</em>: si no puede comunicarse con el backend, no acciona ningún relé. El telar permanece en el estado en que estaba y la botonera física sigue funcionando con normalidad. Cuando la red se restablece, el sistema se sincroniza sin ejecutar órdenes acumuladas.</div></details>
+<details><summary>¿El sistema puede arrancar el telar solo, por accidente?</summary><div class="bd">Es el riesgo que más atención recibió durante el diseño. Al encender o reiniciar el microcontrolador, sus pines quedan un instante sin definir. Por eso cada canal lleva una resistencia de polarización que mantiene el relé en reposo durante ese lapso, y el firmware escribe el nivel seguro antes de configurar los pines. En las pruebas de banco se verifica reiniciando el equipo y comprobando que ningún relé se accione.</div></details>
+<details><summary>Si alguien aprieta los botones de la máquina, ¿la web se entera?</summary><div class="bd">Sí. Cada botón se sensa con un optoacoplador que aísla los 24 V de la botonera del microcontrolador. Si un operario aprieta Marcha, Pausa o Retroceder, el nodo lo detecta y la página se actualiza sola. Como el relé cierra el mismo circuito que el botón, el firmware descarta las detecciones que ocurren inmediatamente después de sus propias órdenes, para no interpretarlas como acciones humanas.</div></details>
+<details><summary>¿La web sabe cuántas pasadas tejió realmente el telar?</summary><div class="bd">Sí, mediante el sensor inductivo del Bloque C, montado sobre un eje que completa un giro por pasada. Cada giro entrega un pulso, de modo que el avance registrado corresponde al movimiento real de la máquina y no a una estimación por tiempo. Lo delicado no es la electrónica —el sensor tiene tres cables— sino identificar el eje con esa relación de giro y fabricarle un soporte que resista la vibración.</div></details>
+<details><summary>¿Por qué no se utilizó un PLC industrial?</summary><div class="bd">Por costo y por alcance. Un PLC resolvería el control con mayor robustez, pero su precio está varios órdenes por encima del presupuesto de un proyecto escolar, y buena parte de sus prestaciones no se aprovecharían. El ESP32 cubre lo necesario: leer un estado por red y cerrar tres contactos.</div></details>
+<details><summary>¿Qué ocurre con los dibujos si falla la base de datos?</summary><div class="bd">Existen tres capas de protección: la restauración instantánea del servicio, con una ventana de 6 horas; un respaldo automático diario que guarda un volcado comprimido en un repositorio externo; y una copia manual antes de cada cambio importante. La restauración se prueba en cada visita de mantenimiento, porque un respaldo que nunca se probó no es un respaldo.</div></details>
+<details><summary>¿Se puede aplicar el sistema a los demás telares de la fábrica?</summary><div class="bd">La arquitectura ya lo contempla: la base de datos maneja varios telares y cada nodo se identifica con el suyo. Lo que falta es el hardware de cada nodo adicional. El costo por telar sumado es bajo, porque el desarrollo ya está hecho.</div></details>
+
+<h3 id="comprobacion">Comprobación de lectura</h3>
+<p>Tres preguntas para verificar la comprensión de los criterios centrales del sistema.</p>
+<div class="box" id="quiz"></div></section>
+</main>
+
+<footer>
+  <b>Control de Inserción de Trama</b>
+  Carpeta del Proyecto · Equipo N.º 5 — 7mo Informática · Instituto Leonardo Murialdo · 2026<br>
+  Ferrando · Iannone · Lede Buschiazzo · Manfredo · Montenegro
+</footer>
+<script src="app.js"></script>
+</body>
+</html>
