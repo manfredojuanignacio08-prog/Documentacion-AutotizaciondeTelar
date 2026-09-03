@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 500" font-family="Arial, Helvetica, sans-serif">
+<rect width="900" height="500" fill="#faf5ec"/>
+<text x="450" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#7c2155">Estructura de costos del proyecto</text>
+<text x="450" y="49" text-anchor="middle" font-size="10.5" fill="#6b5b53">Valores en pesos argentinos · revisión del 28/08/2026</text>
+
+<rect x="40" y="72" width="390" height="196" rx="8" fill="#fff" stroke="#ddd"/>
+<text x="235" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c2155">Composición del costo total</text>
+<rect x="58" y="108" width="354" height="24" fill="#7c2155"/>
+<text x="68" y="125" font-size="10" fill="#fff" font-weight="bold">Trabajo del equipo — 99,2 %</text>
+<text x="402" y="125" text-anchor="end" font-size="10" fill="#fff">$24.527.996</text>
+<rect x="58" y="140" width="3" height="18" fill="#b45309"/>
+<text x="70" y="153" font-size="10">Componentes electrónicos</text>
+<text x="402" y="153" text-anchor="end" font-size="10">$99.116</text>
+<rect x="58" y="164" width="4" height="18" fill="#b45309"/>
+<text x="70" y="177" font-size="10">Gastos operativos</text>
+<text x="402" y="177" text-anchor="end" font-size="10">$109.675</text>
+<line x1="58" y1="190" x2="412" y2="190" stroke="#ccc"/>
+<text x="70" y="207" font-size="11" font-weight="bold">Costo total</text>
+<text x="402" y="207" text-anchor="end" font-size="11" font-weight="bold">$24.736.787</text>
+<text x="70" y="226" font-size="10">Margen aplicado (25 %)</text>
+<text x="402" y="226" text-anchor="end" font-size="10">$6.184.197</text>
+<line x1="58" y1="235" x2="412" y2="235" stroke="#7c2155" stroke-width="1.5"/>
+<text x="70" y="254" font-size="12" font-weight="bold" fill="#7c2155">Presupuesto final</text>
+<text x="402" y="254" text-anchor="end" font-size="12" font-weight="bold" fill="#7c2155">$30.920.984</text>
+
+<rect x="470" y="72" width="390" height="196" rx="8" fill="#fff" stroke="#ddd"/>
+<text x="665" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c2155">Materiales por bloque de compra</text>
+<rect x="488" y="108" width="270" height="20" fill="#2B6CB0"/>
+<text x="498" y="123" font-size="9.5" fill="#fff" font-weight="bold">A — Nivel 1 (control y sensado)</text>
+<text x="842" y="123" text-anchor="end" font-size="10">$83.316</text>
+<text x="498" y="150" font-size="9.5">B — Medición (instrumental prestado)</text>
+<text x="842" y="150" text-anchor="end" font-size="10">$0</text>
+<rect x="488" y="160" width="34" height="20" fill="#1f7a3d"/>
+<text x="530" y="175" font-size="9.5">C — Sensor de pasada</text>
+<text x="842" y="175" text-anchor="end" font-size="10">$10.150</text>
+<rect x="488" y="188" width="19" height="20" fill="#b45309"/>
+<text x="515" y="203" font-size="9.5">D — Nivel 2 (selección del dibujo)</text>
+<text x="842" y="203" text-anchor="end" font-size="10">$5.650</text>
+<line x1="488" y1="218" x2="842" y2="218" stroke="#7c2155" stroke-width="1.5"/>
+<text x="498" y="237" font-size="11" font-weight="bold" fill="#7c2155">Total en materiales</text>
+<text x="842" y="237" text-anchor="end" font-size="11" font-weight="bold" fill="#7c2155">$99.116</text>
+<text x="498" y="256" font-size="9" font-style="italic" fill="#6b5b53">Los bloques C y D se completan tras medir el telar.</text>
+
+<rect x="40" y="290" width="820" height="140" rx="8" fill="#fff8e6" stroke="#b45309" stroke-width="1.4"/>
+<text x="60" y="313" font-size="12" font-weight="bold" fill="#b45309">Servicio de mantenimiento posterior a la garantía</text>
+<text x="60" y="340" font-size="10">Abono mensual (2 h de desarrollo)</text>
+<text x="450" y="340" text-anchor="end" font-size="10" font-weight="bold">$131.750 / mes</text>
+<text x="60" y="365" font-size="10">Visita de mantenimiento preventivo</text>
+<text x="60" y="379" font-size="8.5" fill="#6b5b53">(3 h de electrónica + 1 h de dirección)</text>
+<text x="450" y="365" text-anchor="end" font-size="10" font-weight="bold">$244.125 c/u</text>
+<text x="60" y="404" font-size="10">Plan completo anual (12 abonos + 2 visitas)</text>
+<text x="450" y="404" text-anchor="end" font-size="10" font-weight="bold">$2.069.250 / año</text>
+<line x1="480" y1="326" x2="480" y2="412" stroke="#e0cfa8" stroke-width="1"/>
+<text x="505" y="341" font-size="9.5" fill="#6b5b53">Costo de operación recurrente del sistema: $0.</text>
+<text x="505" y="360" font-size="9.5" fill="#6b5b53">Toda la arquitectura de software es de uso libre</text>
+<text x="505" y="376" font-size="9.5" fill="#6b5b53">y el alojamiento se realiza en planes sin cargo.</text>
+<text x="505" y="400" font-size="9" font-style="italic" fill="#6b5b53">Valores de referencia, calculados sobre las</text>
+<text x="505" y="413" font-size="9" font-style="italic" fill="#6b5b53">tarifas horarias del propio proyecto.</text>
+
+<text x="450" y="462" text-anchor="middle" font-size="9.5" font-style="italic" fill="#6b5b53">Detalle por ítem en Lista_de_componentes_Control_Trama.xlsx y Estimacion_Costos_Ganancia_Contrato_v4.docx</text>
+</svg>
