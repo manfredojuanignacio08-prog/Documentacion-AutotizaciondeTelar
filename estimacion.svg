@@ -10,24 +10,24 @@
 <text x="402" y="125" text-anchor="end" font-size="10" fill="#fff">$24.527.996</text>
 <rect x="58" y="140" width="3" height="18" fill="#b45309"/>
 <text x="70" y="153" font-size="10">Componentes electrónicos</text>
-<text x="402" y="153" text-anchor="end" font-size="10">$99.116</text>
+<text x="402" y="153" text-anchor="end" font-size="10">$97.316</text>
 <rect x="58" y="164" width="4" height="18" fill="#b45309"/>
 <text x="70" y="177" font-size="10">Gastos operativos</text>
 <text x="402" y="177" text-anchor="end" font-size="10">$109.675</text>
 <line x1="58" y1="190" x2="412" y2="190" stroke="#ccc"/>
 <text x="70" y="207" font-size="11" font-weight="bold">Costo total</text>
-<text x="402" y="207" text-anchor="end" font-size="11" font-weight="bold">$24.736.787</text>
+<text x="402" y="207" text-anchor="end" font-size="11" font-weight="bold">$24.734.987</text>
 <text x="70" y="226" font-size="10">Margen aplicado (25 %)</text>
-<text x="402" y="226" text-anchor="end" font-size="10">$6.184.197</text>
+<text x="402" y="226" text-anchor="end" font-size="10">$6.183.747</text>
 <line x1="58" y1="235" x2="412" y2="235" stroke="#7c2155" stroke-width="1.5"/>
 <text x="70" y="254" font-size="12" font-weight="bold" fill="#7c2155">Presupuesto final</text>
-<text x="402" y="254" text-anchor="end" font-size="12" font-weight="bold" fill="#7c2155">$30.920.984</text>
+<text x="402" y="254" text-anchor="end" font-size="12" font-weight="bold" fill="#7c2155">$30.918.734</text>
 
 <rect x="470" y="72" width="390" height="196" rx="8" fill="#fff" stroke="#ddd"/>
 <text x="665" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#7c2155">Materiales por bloque de compra</text>
 <rect x="488" y="108" width="270" height="20" fill="#2B6CB0"/>
 <text x="498" y="123" font-size="9.5" fill="#fff" font-weight="bold">A — Nivel 1 (control y sensado)</text>
-<text x="842" y="123" text-anchor="end" font-size="10">$83.316</text>
+<text x="842" y="123" text-anchor="end" font-size="10">$81.516</text>
 <text x="498" y="150" font-size="9.5">B — Medición (instrumental prestado)</text>
 <text x="842" y="150" text-anchor="end" font-size="10">$0</text>
 <rect x="488" y="160" width="34" height="20" fill="#1f7a3d"/>
@@ -38,7 +38,7 @@
 <text x="842" y="203" text-anchor="end" font-size="10">$5.650</text>
 <line x1="488" y1="218" x2="842" y2="218" stroke="#7c2155" stroke-width="1.5"/>
 <text x="498" y="237" font-size="11" font-weight="bold" fill="#7c2155">Total en materiales</text>
-<text x="842" y="237" text-anchor="end" font-size="11" font-weight="bold" fill="#7c2155">$99.116</text>
+<text x="842" y="237" text-anchor="end" font-size="11" font-weight="bold" fill="#7c2155">$97.316</text>
 <text x="498" y="256" font-size="9" font-style="italic" fill="#6b5b53">Los bloques C y D se completan tras medir el telar.</text>
 
 <rect x="40" y="290" width="820" height="140" rx="8" fill="#fff8e6" stroke="#b45309" stroke-width="1.4"/>

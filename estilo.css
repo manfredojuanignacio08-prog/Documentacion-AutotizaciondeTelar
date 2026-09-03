@@ -90,12 +90,6 @@ pre{background:var(--gray-dk);color:#E4DED2;padding:1rem 1.1rem;border-radius:0 
 .out{font-family:var(--fm);font-size:.76rem;background:var(--gray-dk);color:#E4DED2;border-radius:var(--r);
   padding:.85rem 1rem;min-height:92px;white-space:pre-wrap;line-height:1.6;flex:1;min-width:230px}
 
-
-
-
-details[open] 
-
-
 .opt{display:block;width:100%;text-align:left;background:var(--cream);border:1.5px solid var(--cream-bd);
   border-radius:8px;padding:.55rem .85rem;margin-bottom:.4rem;cursor:pointer;font-family:inherit;
   font-size:.88rem;transition:.13s;color:var(--gray-dk)}
