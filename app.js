@@ -148,3 +148,56 @@ if (lb) {
   lb.addEventListener('click', cerrar);
   addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
 }
+
+/* ---------- modo oscuro ---------- */
+const btnTema = document.getElementById('tema');
+if (btnTema) {
+  const ico = document.getElementById('tema-ico');
+  const txt = document.getElementById('tema-txt');
+  const pintar = (t) => {
+    document.documentElement.setAttribute('data-tema', t);
+    ico.textContent = t === 'oscuro' ? '☀' : '◐';
+    txt.textContent = t === 'oscuro' ? 'Modo claro' : 'Modo oscuro';
+  };
+  // Arranca según lo que prefiera el sistema; el usuario puede cambiarlo.
+  const prefiereOscuro = matchMedia && matchMedia('(prefers-color-scheme: dark)').matches;
+  pintar(prefiereOscuro ? 'oscuro' : 'claro');
+  btnTema.onclick = () => {
+    const actual = document.documentElement.getAttribute('data-tema');
+    pintar(actual === 'oscuro' ? 'claro' : 'oscuro');
+  };
+}
+
+/* ---------- buscador del índice ---------- */
+const buscar = document.getElementById('buscar');
+if (buscar) {
+  const enlacesNav = [...document.querySelectorAll('#nav a')];
+  const grupos = [...document.querySelectorAll('#nav .ngr')];
+  let sinRes = null;
+  buscar.addEventListener('input', () => {
+    const q = buscar.value.trim().toLowerCase();
+    let visibles = 0;
+    enlacesNav.forEach(a => {
+      const coincide = !q || a.textContent.toLowerCase().includes(q);
+      a.classList.toggle('oculto', !coincide);
+      if (coincide) visibles++;
+    });
+    // Un grupo se oculta si ninguno de sus enlaces quedó visible.
+    grupos.forEach(g => {
+      let hay = false;
+      let el = g.nextElementSibling;
+      while (el && !el.classList.contains('ngr')) {
+        if (el.tagName === 'A' && !el.classList.contains('oculto')) hay = true;
+        el = el.nextElementSibling;
+      }
+      g.classList.toggle('oculto', !hay);
+    });
+    if (!sinRes) {
+      sinRes = document.createElement('div');
+      sinRes.className = 'sin-res';
+      sinRes.textContent = 'Sin resultados';
+      document.getElementById('nav').appendChild(sinRes);
+    }
+    sinRes.style.display = (q && visibles === 0) ? 'block' : 'none';
+  });
+}
