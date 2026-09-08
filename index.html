@@ -67,6 +67,7 @@
 <a href="#s9-4" class="n1">9.4 · Oportunidades de Negocio</a>
 <a href="#s9-5" class="n1">9.5 · Automatización del Conteo de Producción y Parada por Pieza</a>
 <a href="#s9-6" class="n1">9.6 · Gestión de Insumos y Trazabilidad de Piezas</a>
+<a href="#s9-7" class="n1">9.7 · Estadísticas de Producción por Dibujo y Ficha Técnica Descargable</a>
 <a href="#s10" class="n0">10 · Contrato</a>
 <a href="#s10-1" class="n1">10.1 · Objetivo del proyecto</a>
 <a href="#s10-2" class="n1">10.2 · Alcance del proyecto</a>
@@ -490,6 +491,13 @@ Para la etapa actual del proyecto se resolvió continuar con el servicio existen
 <li><b>Control de trama y urdimbre restantes:</b> conociendo los metros consumidos por pasada, el sistema puede estimar cuánto queda de cada insumo y avisar antes de que se termine. Hoy eso se estima a ojo, y hay rangos en los que el operario no llega a percibir cuánto resta.</li>
 <li><b>Encadenado de trabajos:</b> permitir que la web indique qué dibujo sigue una vez terminada la pieza en curso, de modo que el operario no dependa de una consulta telefónica para saber cómo continuar.</li>
 <li><b>Acceso remoto y multiusuario:</b> la arquitectura ya contempla el ingreso con usuario, lo que habilita a futuro que el dueño consulte el estado de la planta sin estar presente. Esta línea cobra sentido recién cuando el sistema esté validado en producción.</li>
+</ul>
+<h3 id="s9-7">9.7. Estadísticas de Producción por Dibujo y Ficha Técnica Descargable</h3>
+<ul>
+<li><b>Historial por dibujo:</b> el registro de producción ya guarda, para cada trabajo, qué dibujo se usó, cuándo empezó, cuándo terminó y cuántas pasadas acumuló. Con esa información, sin agregar ningún sensor ni modificar el esquema de la base de datos, la biblioteca puede mostrar por cada dibujo cuántas veces se tejió, las pasadas acumuladas, el tiempo total de máquina, la última vez que se utilizó y el promedio de pasadas por sesión.</li>
+<li><b>Metros producidos:</b> convertir las pasadas en metros requiere conocer cuánto avanza la tela en cada pasada, un valor que depende de la densidad del tejido y que hoy no está medido. Se resolvería con un campo configurable por dibujo, cargado una sola vez tras medir un tramo conocido sobre la máquina.</li>
+<li><b>Ficha técnica descargable:</b> reunir en un documento los datos del dibujo (nombre, dimensiones, matriz y colores) junto con su historial de producción, exportable desde la propia biblioteca. La arquitectura ya incluye la biblioteca de generación de documentos necesaria para esto.</li>
+<li><b>Condición previa:</b> mientras el sensor de pasada del Bloque C no esté instalado y validado, el conteo es una estimación por tiempo y no una lectura de la máquina. Presentar metros con precisión aparente sobre un número estimado daría una falsa sensación de exactitud, de modo que esta línea se implementa una vez que el conteo real esté confirmado, tal como se indica en la sección 9.5.</li>
 </ul>
 </section>
 <section id="s10">
