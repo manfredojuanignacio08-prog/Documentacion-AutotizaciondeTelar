@@ -201,3 +201,15 @@ if (buscar) {
     sinRes.style.display = (q && visibles === 0) ? 'block' : 'none';
   });
 }
+
+/* ---------- grupos del índice, plegables ---------- */
+document.querySelectorAll('#nav .ngr').forEach(g => {
+  g.addEventListener('click', () => {
+    const plegado = g.classList.toggle('plegado');
+    let el = g.nextElementSibling;
+    while (el && !el.classList.contains('ngr')) {
+      if (el.tagName === 'A') el.style.display = plegado ? 'none' : '';
+      el = el.nextElementSibling;
+    }
+  });
+});
