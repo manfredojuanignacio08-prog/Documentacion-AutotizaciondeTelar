@@ -1,14 +1,16 @@
 /* Control de Inserción de Trama — Carpeta del Proyecto
    Paleta tomada de la aplicación real, con tratamiento vintage. */
-@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400&display=swap');
 :root{
+    --fs:'Questrial',var(--fb);
+  --fm:'IBM Plex Mono',ui-monospace,monospace;
+
   --rose:#1E3A5F;--rose-md:#3D6B96;--rose-lt:#7FA8C9;--rose-xs:#DCE7F0;
   --cream:#F6F8FA;--cream-dk:#E8EDF1;--cream-bd:#CDD8E0;
   --gray-dk:#1F2937;--gray-md:#3F4B5C;--gray-lt:#6B7684;
   --panel:#E8EDF1;--srf:#FFFFFF;--code-bg:#1F2937;--code-fg:#E6EAF0;
   --green:#2E6E4A;--amber:#9C5C0A;--red:#8B1F1F;
-  --fb:'Questrial',system-ui,sans-serif;--fs:'Cormorant Garamond',Georgia,serif;
-  --fm:'JetBrains Mono',Consolas,monospace;
+  --fb:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+  
   --r:10px;--sh:0 2px 12px rgba(42,36,32,.08);--sb:290px;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -22,7 +24,7 @@ body{font-family:var(--fb);color:var(--gray-dk);line-height:1.7;background:var(-
 .sb-top{padding:0 1.3rem 1.1rem;border-bottom:1px solid var(--cream-bd);margin-bottom:.9rem}
 .sb-top .t{font-family:var(--fs);font-size:1.3rem;font-weight:700;color:var(--rose);line-height:1.15}
 .sb-top .s{font-size:.76rem;color:var(--gray-lt);margin-top:.3rem}
-.ngr{font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;color:var(--rose-md);
+.ngr{font-family:var(--fm);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;color:var(--rose-md);
   padding:1.05rem 1.3rem .4rem;font-weight:700;cursor:pointer;display:flex;
   align-items:center;justify-content:space-between;gap:.5rem;user-select:none;transition:.14s}
 .ngr:hover{color:var(--rose)}
@@ -50,7 +52,7 @@ body{font-family:var(--fb);color:var(--gray-dk);line-height:1.7;background:var(-
   border-radius:var(--r);overflow:hidden;box-shadow:var(--sh)}
 .ficha > div{padding:1rem 1.3rem;line-height:1.55;
   box-shadow:1px 0 0 var(--cream-bd), 0 1px 0 var(--cream-bd)}
-.ficha b{color:var(--rose-md);display:block;font-size:.68rem;text-transform:uppercase;
+.ficha b{font-family:var(--fm);color:var(--rose-md);display:block;font-size:.68rem;text-transform:uppercase;
   letter-spacing:.11em;margin-bottom:.3rem;font-weight:700}
 .aviso{background:#E8EDF1;border:1px solid var(--cream-bd);border-left:3px solid var(--rose-lt);
   border-radius:0 var(--r) var(--r) 0;padding:1rem 1.2rem;margin:1.6rem 0;font-size:.92rem;color:var(--gray-md)}
@@ -59,11 +61,11 @@ section{margin-bottom:3.4rem;scroll-margin-top:1.5rem}
 h2{font-family:var(--fs);font-size:2rem;font-weight:700;color:var(--rose);
   margin:2.8rem 0 1rem;padding-bottom:.5rem;border-bottom:1.5px solid var(--cream-bd);
   display:flex;align-items:baseline;gap:.75rem}
-h2 .n{font-family:var(--fb);font-size:.8rem;background:var(--rose);color:var(--cream);
+h2 .n{font-family:var(--fm);font-size:.8rem;background:var(--rose);color:var(--cream);
   border-radius:99px;padding:.2rem .7rem;letter-spacing:.04em;flex:none}
-h3{font-size:1.13rem;color:var(--rose);margin:2rem 0 .55rem;font-weight:600}
-h4{font-size:.99rem;color:var(--rose-md);margin:1.5rem 0 .45rem;font-weight:600}
-.utn{font-size:.66rem;background:var(--cream-dk);color:var(--gray-lt);border:1px solid var(--cream-bd);
+h3{font-family:var(--fs);font-size:1.13rem;color:var(--rose);margin:2rem 0 .55rem;font-weight:600}
+h4{font-family:var(--fs);font-size:.99rem;color:var(--rose-md);margin:1.5rem 0 .45rem;font-weight:600}
+.utn{font-family:var(--fm);font-size:.66rem;background:var(--cream-dk);color:var(--gray-lt);border:1px solid var(--cream-bd);
   border-radius:99px;padding:.12rem .55rem;font-weight:400;vertical-align:middle;white-space:nowrap}
 p{margin-bottom:.85rem;text-align:justify;hyphens:auto}
 .tw{overflow-x:auto;margin:1.1rem 0;border-radius:var(--r);box-shadow:var(--sh)}
@@ -181,7 +183,7 @@ details .bd{padding:1rem 1.15rem 1.1rem;color:var(--gray-md);font-size:.92rem;te
   --cream:#131A24;--cream-dk:#1A222E;--cream-bd:#31404F;
   --gray-dk:#E6EDF3;--gray-md:#B8C4D0;--gray-lt:#8895A3;
   --panel:#1A222E;--srf:#18202B;--code-bg:#0D131B;--code-fg:#CFD9E4;
-  --green:#6FCF97;--amber:#E0A458;--red:#E07A7A;
+  --green:#6FCF97;--amber:#9C5C0A;--red:#E07A7A;
 }
 [data-tema="oscuro"] body{background-image:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.012) 3px 4px)}
 [data-tema="oscuro"] .sb{background:var(--panel)}
@@ -222,7 +224,7 @@ body,.sb,.tw table,.box,details,figure img{transition:background .2s,color .2s,b
   padding:1.4rem 1.6rem;margin:2.6rem 0 1rem;position:relative;overflow:hidden}
 .creditos::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
   background:linear-gradient(90deg,var(--rose) 0 60%,var(--rose-lt) 60% 100%)}
-.creditos .t{font-weight:600;color:var(--gray-dk);margin-bottom:.3rem;font-size:.95rem}
+.creditos .t{font-family:var(--fs);font-weight:600;color:var(--gray-dk);margin-bottom:.3rem;font-size:.95rem}
 .creditos .l{font-size:.87rem;color:var(--gray-md);line-height:1.65}
 .creditos .enlaces{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.1rem}
 .creditos .enlaces a{display:inline-flex;align-items:center;gap:.5rem;
@@ -231,3 +233,17 @@ body,.sb,.tw table,.box,details,figure img{transition:background .2s,color .2s,b
 .creditos .enlaces a:hover{background:var(--rose);color:var(--cream);border-color:var(--rose)}
 .creditos .enlaces a svg{flex:none}
 
+
+/* ---------- navegación entre secciones ---------- */
+.navseg{display:flex;justify-content:space-between;gap:1rem;margin:3rem 0 1rem;
+  padding-top:1.6rem;border-top:1px solid var(--cream-bd)}
+.navseg a{flex:1;max-width:46%;display:flex;flex-direction:column;gap:.2rem;
+  background:var(--panel);border:1px solid var(--cream-bd);border-radius:var(--r);
+  padding:.9rem 1.1rem;text-decoration:none;transition:.16s}
+.navseg a:hover{border-color:var(--rose-lt);background:var(--srf);transform:translateY(-1px);box-shadow:var(--sh)}
+.navseg a.sig{margin-left:auto;text-align:right}
+.navseg .et{font-family:var(--fm);font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--gray-lt)}
+.navseg .tt{font-family:var(--fs);font-size:1rem;color:var(--rose);line-height:1.25}
+.navseg a.vacio{visibility:hidden}
+@media(max-width:900px){ .navseg{flex-direction:column} .navseg a{max-width:100%} .navseg a.sig{text-align:left} }

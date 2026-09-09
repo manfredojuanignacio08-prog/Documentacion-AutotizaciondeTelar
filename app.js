@@ -87,48 +87,6 @@ if (mt) {
 }
 
 /* ---------- comprobación de lectura ---------- */
-const P = [
-  { q: 'En la matriz del dibujo, ¿qué representa una fila?',
-    o: ['Un marco del telar', 'Una pasada completa', 'Un rollo de hilo', 'Un ciclo del motor'], ok: 1,
-    fb: 'Cada fila equivale a una pasada. Las columnas de esa fila son los elementos que se activan de forma simultánea en ese momento, no posiciones que se recorren una por una.' },
-  { q: 'Si se corta la conexión mientras el telar está tejiendo, ¿qué hace el sistema?',
-    o: ['Detiene la máquina de inmediato', 'Sigue enviando las últimas órdenes', 'No acciona ningún relé', 'Reinicia el patrón desde el comienzo'], ok: 2,
-    fb: 'El firmware es fail-safe: sin comunicación no acciona nada. El telar permanece como estaba y la botonera sigue operable manualmente.' },
-  { q: '¿Por qué cada canal de relé lleva una resistencia de polarización?',
-    o: ['Para limitar la corriente de la bobina', 'Para evitar que el relé se accione al encender', 'Para filtrar el ruido de los motores', 'Para reducir los 24 V a 3,3 V'], ok: 1,
-    fb: 'Al arrancar el microcontrolador, sus pines quedan un instante sin definir. La resistencia mantiene el relé en reposo durante ese lapso. Según la polaridad del módulo, va conectada a 3,3 V o a masa.' }
-];
-const $q = document.getElementById('quiz');
-let idx = 0, ok = 0;
-function pregunta() {
-  if (!$q) return;
-  if (idx >= P.length) {
-    const m = ok === 3 ? 'Correcto en todo: el modelo quedó claro.'
-            : ok === 2 ? 'Muy bien. Conviene repasar el punto que quedó pendiente.'
-            : 'Vale la pena releer los apartados 3.2.4 y 4.6, donde está el fundamento.';
-    $q.innerHTML = `<h5>${ok} de ${P.length} correctas</h5><p>${m}</p>
-      <button class="btn g" onclick="reiniciar()">Volver a empezar</button>`;
-    return;
-  }
-  const p = P[idx];
-  $q.innerHTML = `<h5>${idx + 1}. ${p.q}</h5>` +
-    p.o.map((t, i) => `<button class="opt" data-i="${i}">${t}</button>`).join('') + `<div class="fb" id="fb"></div>`;
-  $q.querySelectorAll('.opt').forEach(b => {
-    b.onclick = () => {
-      const i = +b.dataset.i;
-      $q.querySelectorAll('.opt').forEach((x, j) => {
-        x.disabled = true;
-        if (j === p.ok) x.classList.add('ok'); else if (j === i) x.classList.add('bad');
-      });
-      if (i === p.ok) ok++;
-      document.getElementById('fb').innerHTML =
-        `${p.fb} <button class="btn" style="margin-top:.6rem" onclick="siguiente()">Siguiente</button>`;
-    };
-  });
-}
-function siguiente() { idx++; pregunta(); }
-function reiniciar() { idx = 0; ok = 0; pregunta(); }
-pregunta();
 
 /* ---------- lightbox de la galería ---------- */
 const lb = document.getElementById('lb');
@@ -213,3 +171,36 @@ document.querySelectorAll('#nav .ngr').forEach(g => {
     }
   });
 });
+
+/* ---------- navegación entre secciones ----------
+   La corrección de la cátedra observó que la página se lee de corrido, lo que
+   sobrecarga al lector. Se agregan al pie de cada sección dos accesos, al tema
+   anterior y al siguiente, para que se pueda avanzar sin volver al índice.   */
+(function () {
+  const secs = [...document.querySelectorAll('main section[id]')];
+  const titulo = s => {
+    const h = s.querySelector('h2');
+    if (!h) return s.id;
+    return h.textContent.replace(/^\s*\d+\s*/, '').trim();
+  };
+  secs.forEach((s, i) => {
+    const nav = document.createElement('nav');
+    nav.className = 'navseg';
+    nav.setAttribute('aria-label', 'Navegación entre secciones');
+
+    const ant = secs[i - 1];
+    const sig = secs[i + 1];
+
+    const link = (dest, clase, etiqueta) => {
+      const a = document.createElement('a');
+      if (!dest) { a.className = clase + ' vacio'; a.setAttribute('aria-hidden', 'true'); return a; }
+      a.href = '#' + dest.id;
+      a.className = clase;
+      a.innerHTML = `<span class="et">${etiqueta}</span><span class="tt">${titulo(dest)}</span>`;
+      return a;
+    };
+    nav.appendChild(link(ant, 'ant', '← Tema anterior'));
+    nav.appendChild(link(sig, 'sig', 'Tema siguiente →'));
+    s.appendChild(nav);
+  });
+})();
