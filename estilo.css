@@ -41,7 +41,7 @@ body{font-family:var(--fb);color:var(--gray-dk);line-height:1.7;background:var(-
 .wrap{margin-left:var(--sb);max-width:1000px;padding:0 3rem 6rem}
 .hero{padding:4rem 0 2.4rem;border-bottom:1px solid var(--cream-bd);margin-bottom:2.4rem;position:relative}
 .hero::after{content:'';position:absolute;bottom:-1px;left:0;width:120px;height:3px;background:var(--rose)}
-.kick{font-family:var(--fs);font-style:italic;font-size:1rem;color:var(--rose-md);
+.kick{font-family:var(--fm);font-size:.82rem;font-weight:500;color:var(--rose-md);
   letter-spacing:.14em;text-transform:uppercase;margin-bottom:.7rem}
 .hero h1{font-family:var(--fs);font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;color:var(--rose);line-height:1.06}
 .hero h1 small{display:block;font-size:.42em;font-weight:400;color:var(--gray-md);
