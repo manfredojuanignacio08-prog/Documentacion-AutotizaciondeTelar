@@ -68,7 +68,7 @@ h4{font-family:var(--fs);font-size:.99rem;color:var(--rose-md);margin:1.5rem 0 .
 .utn{font-family:var(--fm);font-size:.66rem;background:var(--cream-dk);color:var(--gray-lt);border:1px solid var(--cream-bd);
   border-radius:99px;padding:.12rem .55rem;font-weight:400;vertical-align:middle;white-space:nowrap}
 p{margin-bottom:.85rem;text-align:justify;hyphens:auto}
-.tw{overflow-x:auto;margin:1.1rem 0;border-radius:var(--r);box-shadow:var(--sh)}
+.tw{overflow-x:auto;max-width:100%;margin:1.1rem 0;border-radius:var(--r);box-shadow:var(--sh)}
 table{width:100%;border-collapse:collapse;font-size:.85rem;background:#FFFFFF;min-width:520px}
 th{background:var(--rose);color:var(--cream);text-align:left;padding:.62rem .75rem;font-weight:600;font-size:.79rem}
 td{padding:.55rem .75rem;border-top:1px solid var(--cream-bd);vertical-align:top}
@@ -86,7 +86,7 @@ pre{background:var(--gray-dk);color:#E6EAF0;padding:1rem 1.1rem;border-radius:0 
   padding:1.4rem;box-shadow:var(--sh);margin:1.4rem 0}
 .box h5{font-size:.95rem;color:var(--rose);margin-bottom:.8rem;font-weight:600}
 .gw{display:flex;gap:1.4rem;flex-wrap:wrap;align-items:flex-start}
-.gr{display:grid;gap:3px}
+.gr{display:grid;gap:3px;justify-content:start;justify-items:start;width:max-content;max-width:100%}
 .cel{width:32px;height:32px;border:1.5px solid var(--cream-bd);border-radius:5px;background:var(--cream);
   cursor:pointer;transition:.11s;display:flex;align-items:center;justify-content:center;
   font-size:.7rem;color:transparent;font-weight:700}
@@ -247,3 +247,52 @@ body,.sb,.tw table,.box,details,figure img{transition:background .2s,color .2s,b
 .navseg .tt{font-family:var(--fs);font-size:1rem;color:var(--rose);line-height:1.25}
 .navseg a.vacio{visibility:hidden}
 @media(max-width:900px){ .navseg{flex-direction:column} .navseg a{max-width:100%} .navseg a.sig{text-align:left} }
+
+/* ---------- que nada desborde el ancho en pantallas chicas ---------- */
+.wrap,main,section{min-width:0}
+.tw{-webkit-overflow-scrolling:touch}
+img,figure,svg,pre,table{max-width:100%}
+pre{overflow-x:auto}
+@media(max-width:900px){
+  main{overflow-x:hidden}
+  .tw{position:relative;border:1px solid var(--cream-bd)}
+  .tw table{min-width:660px;font-size:.82rem}
+  .tw th,.tw td{padding:.55rem .6rem}
+  /* aviso de que la tabla se desplaza a lo ancho */
+  .tw::after{content:"Deslizá para ver el resto de la tabla";
+    display:block;position:sticky;left:0;
+    font-family:var(--fm);font-size:.63rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--gray-lt);background:var(--srf);padding:.4rem .7rem;
+    border-top:1px solid var(--cream-bd)}
+}
+
+/* la grilla del demo no se estira en pantallas chicas */
+.gw>div:first-child{min-width:0;max-width:100%;overflow-x:auto}
+@media(max-width:900px){ .gw{gap:1rem} }
+
+/* ═══════════ IMPRESIÓN ═══════════ */
+@media print{
+  @page{margin:1.6cm}
+  :root{--bg:#fff;--srf:#fff;--srf2:#fff;--panel:#fff}
+  body{background:#fff;color:#000;font-size:10.5pt}
+  .sb,.mtoggle,.arriba,.prog,.navseg,.tema,.sb-find,#buscar,.lb{display:none !important}
+  .wrap,main{margin:0;padding:0;max-width:100%;width:100%}
+  .hero{padding:0 0 1rem}
+  .hero h1{font-size:22pt}
+  a{color:#000;text-decoration:none}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:8pt;color:#555;word-break:break-all}
+  section{page-break-inside:auto}
+  h2,h3,h4{page-break-after:avoid;break-after:avoid}
+  figure,table,.tw,pre,.qs{page-break-inside:avoid;break-inside:avoid}
+  .tw{overflow:visible;box-shadow:none;border:1px solid #999}
+  .tw::after{display:none}
+  .tw table{min-width:0;font-size:9pt}
+  table,th,td{border:1px solid #999 !important}
+  th{background:#e8e8e8 !important;color:#000 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  img{max-width:100%;page-break-inside:avoid}
+  details{page-break-inside:avoid}
+  details>summary{list-style:none}
+  details .bd{display:block !important}
+  .creditos{page-break-before:auto;border-top:1px solid #999}
+  footer{font-size:8.5pt;color:#555;border-top:1px solid #ccc;margin-top:1rem}
+}
