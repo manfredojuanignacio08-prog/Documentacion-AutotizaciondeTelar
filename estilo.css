@@ -296,3 +296,21 @@ pre{overflow-x:auto}
   .creditos{page-break-before:auto;border-top:1px solid #999}
   footer{font-size:8.5pt;color:#555;border-top:1px solid #ccc;margin-top:1rem}
 }
+
+/* ---------- equipo con LinkedIn ---------- */
+.eq-t{font-family:var(--fm);font-size:.68rem;text-transform:uppercase;letter-spacing:.13em;
+  color:var(--gray-lt);margin:1.5rem 0 .8rem}
+.eq{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:.7rem;margin-bottom:.6rem}
+.eq-p{display:flex;align-items:center;gap:.8rem;background:var(--panel);border:1px solid var(--cream-bd);
+  border-radius:var(--r);padding:.8rem .95rem;text-decoration:none;transition:.16s}
+.eq-p:hover{border-color:var(--rose-lt);box-shadow:var(--sh);transform:translateY(-1px)}
+.eq-in{flex:none;width:30px;height:30px;border-radius:7px;background:var(--rose);color:var(--cream);
+  display:flex;align-items:center;justify-content:center}
+.eq-p:hover .eq-in{background:var(--rose-md)}
+.eq-d{display:flex;flex-direction:column;gap:.1rem;min-width:0}
+.eq-d b{font-size:.93rem;color:var(--gray-dk);line-height:1.25}
+.eq-d span{font-size:.79rem;color:var(--gray-lt);line-height:1.35}
+.eq-doc{font-size:.87rem;color:var(--gray-lt);margin-top:.9rem}
+
+/* ---------- íconos en los botones de crédito ---------- */
+.creditos .enlaces a svg{flex:none}
