@@ -314,3 +314,36 @@ pre{overflow-x:auto}
 
 /* ---------- íconos en los botones de crédito ---------- */
 .creditos .enlaces a svg{flex:none}
+
+/* ---------- bloque del Gantt ---------- */
+.gantt-box{display:flex;flex-wrap:wrap;gap:1.4rem;align-items:center;justify-content:space-between;
+  background:var(--panel);border:1px solid var(--cream-bd);border-left:3px solid var(--rose);
+  border-radius:var(--r);padding:1.4rem 1.6rem;margin:1.8rem 0}
+.gb-t{flex:1;min-width:250px}
+.gb-et{display:block;font-family:var(--fm);font-size:.66rem;text-transform:uppercase;
+  letter-spacing:.14em;color:var(--gray-lt);margin-bottom:.3rem}
+.gantt-box h4{font-family:var(--fs);font-size:1.2rem;color:var(--rose);margin:0 0 .4rem;border:none;padding:0}
+.gantt-box p{margin:0;font-size:.88rem;color:var(--gray-md);line-height:1.55}
+.gb-a{display:flex;flex-direction:column;gap:.5rem;flex:none}
+.gb-a a{display:inline-flex;align-items:center;gap:.55rem;background:var(--srf);color:var(--rose);
+  text-decoration:none;border:1px solid var(--cream-bd);border-radius:8px;padding:.55rem 1rem;
+  font-size:.86rem;white-space:nowrap;transition:.15s}
+.gb-a a.pri{background:var(--rose);color:var(--cream);border-color:var(--rose)}
+.gb-a a:hover{background:var(--rose);color:var(--cream);border-color:var(--rose)}
+.gb-a a.pri:hover{background:var(--rose-md)}
+@media(max-width:700px){ .gb-a{width:100%} .gb-a a{justify-content:center} }
+
+/* ---------- Product Backlog ---------- */
+.pb-ep{display:flex;align-items:baseline;gap:.7rem;margin:1.5rem 0 .6rem}
+.pb-n{font-family:var(--fm);font-size:.64rem;text-transform:uppercase;letter-spacing:.12em;
+  background:var(--rose);color:var(--cream);padding:.2rem .5rem;border-radius:4px;flex:none}
+.pb-ep h4{margin:0;font-family:var(--fs);font-size:1.08rem;color:var(--gray-dk);border:none;padding:0}
+ul.pb{list-style:none;margin:0 0 .4rem;padding:0}
+ul.pb li{display:grid;grid-template-columns:auto 1fr;gap:.2rem .8rem;align-items:baseline;
+  padding:.55rem .9rem;border-left:2px solid var(--cream-bd);margin-bottom:.3rem;background:var(--srf)}
+ul.pb li::before{display:none}
+ul.pb li:hover{border-left-color:var(--rose-lt)}
+.pb-id{font-family:var(--fm);font-size:.7rem;color:var(--rose-md);font-weight:600;grid-row:span 2}
+ul.pb li b{font-size:.94rem;color:var(--gray-dk)}
+.pb-d{font-size:.86rem;color:var(--gray-md);line-height:1.55}
+@media(max-width:700px){ ul.pb li{grid-template-columns:1fr} .pb-id{grid-row:auto} }
