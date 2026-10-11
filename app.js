@@ -1,7 +1,7 @@
 /* Carpeta del Proyecto — Control de Inserción de Trama */
 
 /* ---------- demostración de la grilla ---------- */
-const FILAS = 6, COLS = 3;
+const FILAS = 6, COLS = 4;   // columnas = bobinas de selección
 let grid = Array.from({length: FILAS}, () => Array(COLS).fill(0));
 let tocando = false, timer = null, filaActual = -1;
 const $grid = document.getElementById('grid');
@@ -19,7 +19,8 @@ function dibujar() {
       const cel = document.createElement('div');
       cel.className = 'cel' + (grid[f][c] ? ' on' : '') + (f === filaActual ? ' now' : '');
       cel.textContent = grid[f][c] ? '1' : '';
-      cel.onclick = () => { grid[f][c] = grid[f][c] ? 0 : 1; dibujar(); };
+      // Una sola bobina por fila: marcar otra celda desmarca la anterior.
+      cel.onclick = () => { const on = !grid[f][c]; grid[f].fill(0); grid[f][c] = on ? 1 : 0; dibujar(); };
       $grid.appendChild(cel);
     }
   }
@@ -31,8 +32,8 @@ function paso() {
   filaActual = (filaActual + 1) % FILAS;
   const a = activos(grid[filaActual]);
   const linea = a.length
-    ? `pasada ${filaActual + 1}  →  se activan: ${a.join(', ')}`
-    : `pasada ${filaActual + 1}  →  ninguno se activa`;
+    ? `pasada ${filaActual + 1}  →  bobina ${a[0]}`
+    : `pasada ${filaActual + 1}  →  ninguna bobina`;
   const prev = $out.textContent.split('\n').slice(-6).join('\n');
   $out.textContent = (prev ? prev + '\n' : '') + linea;
   dibujar();
@@ -62,9 +63,9 @@ if ($grid) {
   };
   document.getElementById('ejemplo').onclick = () => {
     detener();
-    grid = [[1,0,1],[0,1,0],[1,0,1],[0,1,0],[1,1,0],[0,0,1]];
+    grid = [[1,0,0,0],[0,0,1,0],[0,0,0,1],[0,1,0,0],[1,0,0,0],[0,0,1,0]];
     dibujar();
-    $out.textContent = 'Ejemplo cargado: una raya repetitiva.\n\nApretá reproducir para verlo en ejecución.';
+    $out.textContent = 'Ejemplo cargado: las bobinas 1, 3, 4 y 2 alternadas.\n\nApretá reproducir para verlo en ejecución.';
   };
   dibujar();
 }

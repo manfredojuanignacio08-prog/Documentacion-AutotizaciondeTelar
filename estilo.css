@@ -133,6 +133,7 @@ p.cap{text-align:center;font-size:.82rem;color:var(--gray-lt);font-style:italic;
   border-radius:var(--r);box-shadow:var(--sh);cursor:zoom-in;transition:.18s;background:#E8EDF1}
 .gal img:hover{transform:scale(1.015);box-shadow:0 4px 18px rgba(42,36,32,.16)}
 .gal figcaption{font-size:.8rem;margin-top:.45rem;line-height:1.5;text-align:left}
+.gal.alto{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
 .gal.alto img{height:300px;object-fit:contain;padding:.4rem}
 .lb{position:fixed;inset:0;background:rgba(42,36,32,.93);display:none;align-items:center;
   justify-content:center;z-index:200;padding:2rem;cursor:zoom-out}
